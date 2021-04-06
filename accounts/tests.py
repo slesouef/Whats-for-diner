@@ -17,3 +17,17 @@ class UserFileUploadPathTestCase(TestCase):
         user = MyUser(username="Xerxes")
         path = user_directory_path(user, "test_file.png")
         self.assertEqual("xe/xerxes/test_file.png", path)
+
+
+class UnauthenticatedUserViewsTestCase(TestCase):
+    """
+    Verify the behaviour of the accounts app views when a user is not
+    authenticated
+    """
+
+    def testSignupPage(self):
+        """Test that the signup page returns correctly"""
+        response = self.client.get("/account/signup")
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "accounts/signup.html")
