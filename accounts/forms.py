@@ -20,6 +20,6 @@ class SignUpForm(ModelForm):
             "first_name": TextInput(attrs={"class": "form-control"}),
             "last_name": TextInput(attrs={"class": "form-control"}),
             "email": EmailInput(attrs={"class": "form-control"}),
-            "avatar": ClearableFileInput(attrs={"class": "form-control"}),
+            "avatar": ClearableFileInput(),
             "password": PasswordInput(attrs={"class": "form-control"})
         }

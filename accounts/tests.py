@@ -14,7 +14,7 @@ class UserFileUploadPathTestCase(TestCase):
             - directory named after the first two letters of the user's username
             - directory name after the user's username value
         """
-        user = MyUser(username="Xerxes")
+        user = MyUser(username="XeRxEs")
         path = user_directory_path(user, "test_file.png")
         self.assertEqual("xe/xerxes/test_file.png", path)
 
