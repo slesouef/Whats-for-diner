@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'recipe_search.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'wfd_dev',
+        'USER': 'dev',
+        'PASSWORD': 'wfd_dev',
+        'HOST': 'localhost',
+        'PORT': '3306',
         'TEST': {
             'NAME': 'mytestdatabase'
         }
