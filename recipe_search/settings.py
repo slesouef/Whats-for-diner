@@ -85,7 +85,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
         'TEST': {
-            'NAME': 'mytestdatabase'
+            'NAME': 'test'
         }
     }
 }
