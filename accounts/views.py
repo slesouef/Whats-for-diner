@@ -17,7 +17,7 @@ def signup(request):
     """
     if request.user.is_authenticated:
         logger.info("signup page requested for logged in user")
-        return redirect("/")
+        return redirect("profile")
     else:
         if request.method == "POST":
             form = SignUpForm(request.POST, request.FILES)
