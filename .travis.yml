@@ -12,10 +12,10 @@ env:
 install:
   - pipenv install
 before_script:
-  - psql -c "CREATE DATABASE test;" -U postgres
+  - psql -c "CREATE DATABASE WFD_TEST;" -U postgres
   - psql -c "CREATE USER ciAgent PASSWORD 'ciAgent';" -U postgres
   - psql -c "ALTER USER ciAgent CREATEDB;" -U postgres
-  - psql -c "GRANT ALL PRIVILEGES on DATABASE test to ciAgent;" -U postgres
+  - psql -c "GRANT ALL PRIVILEGES on DATABASE WFD_TEST to ciAgent;" -U postgres
 # command to run tests
 script:
   - python manage.py test

@@ -80,6 +80,7 @@ if os.environ.get('TRAVIS') == 'true':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'WFD_TEST',
             'USER': 'ciAgent',
             'PASSWORD': 'ciAgent',
             'HOST': 'localhost',
