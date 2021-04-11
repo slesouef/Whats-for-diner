@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'recipe_search.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-if os.environ.get('ENV') == 'TRAVIS':
+if os.environ.get('TRAVIS') == 'true':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
