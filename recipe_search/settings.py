@@ -79,26 +79,30 @@ WSGI_APPLICATION = 'recipe_search.wsgi.application'
 if os.environ.get('TRAVIS') == 'true':
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql',
+            'USER': 'ciAgent',
+            'PASSWORD': 'ciAgent',
+            'HOST': 'localhost',
+            'PORT': '5432',
             'TEST': {
-                'NAME': 'test'
-            }
-        }
+                'NAME': 'test',
+            },
+        },
     }
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'wfd_dev',
-            'USER': 'dev',
+            'USER': 'wfd_dev',
             'PASSWORD': 'wfd_dev',
             'HOST': 'localhost',
-            'PORT': '3306',
+            'PORT': '5432',
             'TEST': {
-                'NAME': 'test'
-            }
-        }
-}
+                'NAME': 'test',
+            },
+        },
+    }
 
 AUTH_USER_MODEL = 'accounts.MyUser'
 
