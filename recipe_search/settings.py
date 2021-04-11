@@ -149,3 +149,7 @@ if os.environ.get('ENV') == 'PROD':
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Media files (User Images)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
