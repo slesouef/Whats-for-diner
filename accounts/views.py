@@ -1,3 +1,6 @@
+"""
+views for the accounts app
+"""
 import logging
 
 from django.contrib.auth import authenticate, login

@@ -11,6 +11,7 @@ psycopg2 = "~=2.8.6"
 
 [dev-packages]
 coverage = "~=5.5"
+pylint = "~=2.7.4"
 
 [requires]
 python_version = "3.9"
