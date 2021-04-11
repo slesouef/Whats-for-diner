@@ -81,7 +81,7 @@ if os.environ.get('TRAVIS') == 'true':
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'WFD_TEST',
-            'USER': 'ciAgent',
+            'USER': 'ci_agent',
             'PASSWORD': 'ciAgent',
             'HOST': 'localhost',
             'PORT': '5432',
