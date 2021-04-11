@@ -76,18 +76,28 @@ WSGI_APPLICATION = 'recipe_search.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wfd_dev',
-        'USER': 'dev',
-        'PASSWORD': 'wfd_dev',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'TEST': {
-            'NAME': 'test'
+if os.environ.get('ENV') == 'TRAVIS':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'TEST': {
+                'NAME': 'test'
+            }
         }
     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'wfd_dev',
+            'USER': 'dev',
+            'PASSWORD': 'wfd_dev',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'TEST': {
+                'NAME': 'test'
+            }
+        }
 }
 
 AUTH_USER_MODEL = 'accounts.MyUser'
