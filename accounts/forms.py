@@ -1,7 +1,8 @@
 """
 Forms use to create and update user account
 """
-from django.forms import ModelForm, TextInput, EmailInput, ClearableFileInput, PasswordInput
+from django.forms import ModelForm, TextInput, EmailInput, ClearableFileInput, PasswordInput, \
+                         Form, CharField, EmailField, ImageField
 
 from .models import MyUser
 
@@ -12,6 +13,7 @@ class SignUpForm(ModelForm):
     Mandatory fields are:
         username
     """
+
     class Meta:
         model = MyUser
         fields = ["username", "first_name", "last_name", "email", "avatar", "password"]
@@ -23,3 +25,16 @@ class SignUpForm(ModelForm):
             "avatar": ClearableFileInput(),
             "password": PasswordInput(attrs={"class": "form-control"})
         }
+
+
+class UpdateForm(Form):
+    """
+    Form to update the non-mandatory user information
+    """
+    first_name = CharField(required=False, max_length=150,
+                           widget=TextInput(attrs={"class": "form-control"}))
+    last_name = CharField(required=False, max_length=150,
+                          widget=TextInput(attrs={"class": "form-control"}))
+    email = EmailField(required=False, max_length=254,
+                       widget=EmailInput(attrs={"class": "form-control"}))
+    avatar = ImageField(required=False, widget=ClearableFileInput())
