@@ -21,5 +21,6 @@ from accounts import views as accounts_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/signup', accounts_views.signup, name='signup'),
-    path('account/profile', accounts_views.profile, name='profile')
+    path('account/profile', accounts_views.profile, name='profile'),
+    path('account/update', accounts_views.update, name='update')
 ]

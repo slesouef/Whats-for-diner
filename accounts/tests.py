@@ -1,12 +1,21 @@
+"""
+Tests file for the accounts app
+"""
+import shutil
+
+from io import BytesIO
+from unittest import skip
+
+from PIL import Image
 from django.contrib import auth
 from django.test import TestCase
-from io import BytesIO
-from PIL import Image
 
 from accounts.models import MyUser, user_directory_path
+from recipe_search.settings import BASE_DIR
 
 
 def create_test_image():
+    """create an image file for file upload test"""
     file = BytesIO()
     image = Image.new("RGBA", size=(100, 100), color=(69, 239, 120))
     image.save(file, "png")
@@ -20,7 +29,7 @@ class UserFileUploadPathTestCase(TestCase):
     Verify that the file upload path method returns the correct path structure
     """
 
-    def testUploadPath(self):
+    def test_upload_path(self):
         """
         The user's file is uploaded in a user specific directory with the following structure
             - directory named after the first two letters of the user's username
@@ -36,14 +45,14 @@ class UnauthenticatedUserViewsTestCase(TestCase):
     Verify the behaviour of the accounts app views when a user is not authenticated
     """
 
-    def testSignupPage(self):
+    def test_signup_page(self):
         """Test that the signup page returns correctly"""
         response = self.client.get("/account/signup")
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "accounts/base.html")
         self.assertTemplateUsed(response, "accounts/signup.html")
 
-    def testSignupMandatoryOnly(self):
+    def test_signup_mandatory_only(self):
         """Test the signup process with only mandatory fields"""
         form_data = {"username": "test",
                      "password": "test"}
@@ -58,7 +67,7 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         user = auth.get_user(self.client)
         self.assertTrue(user.is_authenticated)
 
-    def testSignupAllFields(self):
+    def test_signup_all_fields(self):
         """Test the signup with all fields and image file"""
         form_data = {"username": "test",
                      "password": "test",
@@ -76,6 +85,13 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         self.assertTrue(new_row[0].avatar)
         user = auth.get_user(self.client)
         self.assertTrue(user.is_authenticated)
+        shutil.rmtree(f"{BASE_DIR}/media")
+
+    @skip
+    def test_update_page_unauthenticated(self):
+        """Test the update page is not displayed when user is unauthenticated"""
+        response = self.client.get("/account/update")
+        self.assertRedirects(response, "/account/login/?next=/account/update")
 
 
 class AuthenticatedUserViewsTestCase(TestCase):
@@ -88,14 +104,21 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.user = MyUser.objects.create_user(username="test")
         self.client.force_login(self.user)
 
-    def testSignupPage(self):
+    def test_signup_page(self):
         """Test than an authenticated user is redirected when calling the signup page"""
         response = self.client.get("/account/signup")
         self.assertRedirects(response, "/account/profile")
 
-    def testProfilePage(self):
+    def test_profile_page(self):
         """Test that the profile page displays correctly"""
         response = self.client.get("/account/profile")
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "accounts/base.html")
         self.assertTemplateUsed(response, "accounts/profile.html")
+
+    def test_update_page(self):
+        """Test the update page is displayed properly"""
+        response = self.client.get("/account/update")
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "accounts/update.html")

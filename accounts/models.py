@@ -8,7 +8,9 @@ from django.contrib.auth.models import AbstractUser
 
 
 def user_directory_path(instance, filename):
-    """The user's avatar image will be uploaded to a user specific directory based on the username"""
+    """
+    The user's avatar image will be uploaded to a user specific directory based on the username
+    """
     username = instance.username.lower()
     directory = username[:2]
     return f"{directory}/{username}/{filename}"

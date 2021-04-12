@@ -1,3 +1,6 @@
+"""
+views for the accounts app
+"""
 import logging
 
 from django.contrib.auth import authenticate, login
@@ -5,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
 
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateForm
 
 logger = logging.getLogger(__name__)
 
@@ -43,3 +46,13 @@ def profile(request):
     display the user's profile page
     """
     return render(request, "accounts/profile.html")
+
+
+@login_required
+def update(request):
+    """
+    Display the user information update page
+    """
+    form = UpdateForm()
+    logger.debug("update page requested")
+    return render(request, "accounts/update.html", {"form": form})
