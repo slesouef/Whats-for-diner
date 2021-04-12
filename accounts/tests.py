@@ -4,6 +4,8 @@ Tests file for the accounts app
 import shutil
 
 from io import BytesIO
+from unittest import skip
+
 from PIL import Image
 from django.contrib import auth
 from django.test import TestCase
@@ -85,6 +87,12 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         self.assertTrue(user.is_authenticated)
         shutil.rmtree(f"{BASE_DIR}/media")
 
+    @skip
+    def test_update_page_unauthenticated(self):
+        """Test the update page is not displayed when user is unauthenticated"""
+        response = self.client.get("/account/update")
+        self.assertRedirects(response, "/account/login/?next=/account/update")
+
 
 class AuthenticatedUserViewsTestCase(TestCase):
     """
@@ -107,3 +115,10 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "accounts/base.html")
         self.assertTemplateUsed(response, "accounts/profile.html")
+
+    def test_update_page(self):
+        """Test the update page is displayed properly"""
+        response = self.client.get("/account/update")
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "accounts/update.html")
