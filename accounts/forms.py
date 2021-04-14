@@ -11,7 +11,7 @@ class SignUpForm(ModelForm):
     """
     This form contains all the fields necessary to create a user account
     Mandatory fields are:
-        username
+        username, password
     """
 
     class Meta:
@@ -31,10 +31,10 @@ class UpdateForm(Form):
     """
     Form to update the non-mandatory user information
     """
-    first_name = CharField(required=False, max_length=150,
+    first_name = CharField(required=False, max_length=150, label="Prénom",
                            widget=TextInput(attrs={"class": "form-control"}))
-    last_name = CharField(required=False, max_length=150,
+    last_name = CharField(required=False, max_length=150, label="Nom de Famille",
                           widget=TextInput(attrs={"class": "form-control"}))
-    email = EmailField(required=False, max_length=254,
+    email = EmailField(required=False, max_length=254, label="Adresse email",
                        widget=EmailInput(attrs={"class": "form-control"}))
-    avatar = ImageField(required=False, widget=ClearableFileInput())
+    avatar = ImageField(required=False, label="Avatar", widget=ClearableFileInput())

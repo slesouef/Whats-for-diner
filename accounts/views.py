@@ -53,6 +53,26 @@ def update(request):
     """
     Display the user information update page
     """
-    form = UpdateForm()
-    logger.debug("update page requested")
+    if request.method == 'POST':
+        form = UpdateForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = request.user
+            if form.data["first_name"] != "":
+                user.first_name = form.data["first_name"]
+                logger.debug("user %s updated first name", {user.username})
+            if form.data["last_name"] != "":
+                user.last_name = form.data["last_name"]
+                logger.debug("user %s updated last name", {user.username})
+            if form.data["email"] != "":
+                user.email = form.data["email"]
+                logger.debug("user %s updated email", {user.username})
+            if form.files:
+                user.avatar = form.files["avatar"]
+                logger.debug("user %s updated user icon", {user.username})
+            user.save()
+            logger.info("user %s information update successful", {user.username})
+            return redirect("profile")
+    else:
+        form = UpdateForm()
+        logger.debug("update page requested")
     return render(request, "accounts/update.html", {"form": form})
