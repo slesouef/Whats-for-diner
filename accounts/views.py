@@ -76,3 +76,11 @@ def update(request):
         form = UpdateForm()
         logger.debug("update page requested")
     return render(request, "accounts/update.html", {"form": form})
+
+
+@login_required()
+def delete(request):
+    """
+    Displays the delete confirmation page
+    """
+    return render(request, "accounts/confirmation.html")
