@@ -74,11 +74,27 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         self.assertTrue(user.is_authenticated)
         shutil.rmtree(f"{BASE_DIR}/media")
 
-    @skip
     def test_update_page_unauthenticated(self):
         """Test the update page is not displayed when user is unauthenticated"""
         response = self.client.get("/account/update")
-        self.assertRedirects(response, "/account/login/?next=/account/update")
+        self.assertRedirects(response, "/account/login?next=/account/update")
+
+    def test_profile_page_unauthenticated(self):
+        """Test the profile page is not displayed when user is unauthenticated"""
+        response = self.client.get("/account/profile")
+        self.assertRedirects(response, "/account/login?next=/account/profile")
+
+    def test_delete_page_unauthenticated(self):
+        """Test the delete page is not displayed when user is unauthenticated"""
+        response = self.client.get("/account/delete")
+        self.assertRedirects(response, "/account/login?next=/account/delete")
+
+    def test_login_page(self):
+        """Test the login page displays correctly"""
+        response = self.client.get("/account/login")
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "accounts/login.html")
 
 
 class AuthenticatedUserViewsTestCase(TestCase):
