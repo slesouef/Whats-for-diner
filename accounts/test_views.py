@@ -262,3 +262,12 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "accounts/base.html")
         self.assertTemplateUsed(response, "accounts/confirmation.html")
+
+    def test_delete_user_account(self):
+        """Test the user account deletion process"""
+        original_user = MyUser.objects.filter(username="test")
+        self.assertEqual(1, original_user.count(), "the user does not exist")
+        response = self.client.post("/account/delete")
+        self.assertRedirects(response, "/account/signup")
+        deleted_user = MyUser.objects.filter(username="test")
+        self.assertEqual(0, deleted_user.count(), "the user was not deleted")

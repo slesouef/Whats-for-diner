@@ -83,4 +83,11 @@ def delete(request):
     """
     Displays the delete confirmation page
     """
-    return render(request, "accounts/confirmation.html")
+    if request.method == 'POST':
+        user = request.user
+        user.delete()
+        logger.info("account deleted successfully")
+        logger.debug("account for user %s deleted succesfully", {user.username})
+        return redirect("signup")
+    else:
+        return render(request, "accounts/confirmation.html")
