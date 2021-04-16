@@ -24,17 +24,21 @@ class UpdateFormTest(SimpleTestCase):
     """
 
     def test_first_name_field_label(self):
+        """Verify the label for the first name field"""
         form = UpdateForm
         self.assertEqual("Prénom", form.declared_fields.get("first_name").label)
 
     def test_last_name_field_label(self):
+        """Verify the label for the last name field"""
         form = UpdateForm
         self.assertEqual("Nom de Famille", form.declared_fields.get("last_name").label)
 
     def test_email_field_label(self):
+        """Verify the label for the email field"""
         form = UpdateForm
         self.assertEqual("Adresse email", form.declared_fields.get("email").label)
 
     def test_file_field_label(self):
+        """Verify the label for the user avatar field"""
         form = UpdateForm
         self.assertEqual("Avatar", form.declared_fields.get("avatar").label)
