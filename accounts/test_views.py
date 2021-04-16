@@ -96,6 +96,15 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         self.assertTemplateUsed(response, "accounts/base.html")
         self.assertTemplateUsed(response, "accounts/login.html")
 
+    def test_login(self):
+        """Validate login process"""
+        user = MyUser.objects.create_user(username="test", password="test")
+        form_data = {"username": "test",
+                     "password": "test"}
+        response = self.client.post("/account/login", form_data)
+        self.assertTrue(user.is_authenticated)
+        self.assertRedirects(response, "/account/profile")
+
 
 class AuthenticatedUserViewsTestCase(TestCase):
     """

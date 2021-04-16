@@ -103,4 +103,21 @@ def user_login(request):
     """
     Display the login page for a user
     """
-    return render(request, "accounts/login.html")
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, username=username, password=password)
+            if user:
+                login(request, user)
+                logger.debug("user successfully logged in")
+                return redirect("profile")
+            else:
+                logger.debug("user authentication failed for user %s", {username})
+        else:
+            logger.debug("Login attempt with incorrect credentials")
+    else:
+        form = AuthenticationForm
+        logger.debug("Login page requested")
+        return render(request, "accounts/login.html", {"form": form})
