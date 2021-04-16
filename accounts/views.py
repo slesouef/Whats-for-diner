@@ -5,8 +5,11 @@ import logging
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.debug import sensitive_post_parameters
 
 from .forms import SignUpForm, UpdateForm
 
@@ -78,7 +81,7 @@ def update(request):
     return render(request, "accounts/update.html", {"form": form})
 
 
-@login_required()
+@login_required
 def delete(request):
     """
     Displays the delete confirmation page
@@ -87,7 +90,17 @@ def delete(request):
         user = request.user
         user.delete()
         logger.info("account deleted successfully")
-        logger.debug("account for user %s deleted succesfully", {user.username})
+        logger.debug("account for user %s deleted successfully", {user.username})
         return redirect("signup")
     else:
         return render(request, "accounts/confirmation.html")
+
+
+@csrf_protect
+@sensitive_post_parameters()
+@never_cache
+def user_login(request):
+    """
+    Display the login page for a user
+    """
+    return render(request, "accounts/login.html")
