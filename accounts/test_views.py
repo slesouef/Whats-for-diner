@@ -255,3 +255,10 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.assertEqual("new@mail.com", user[0].email)
         self.assertEqual("te/test/new_name.png", user[0].avatar)
         shutil.rmtree(f"{BASE_DIR}/media")
+
+    def test_delete_page(self):
+        """Test the display of the delete page"""
+        response = self.client.get("/account/delete")
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "accounts/confirmation.html")
