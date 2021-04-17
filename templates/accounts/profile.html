@@ -2,8 +2,45 @@
 
 {% block content %}
 
-  <h1>Account created successfully</h1>
+  {% load static %}
 
-  <a class="nav-link" href={% url 'delete' %}>Delete</a>
+  <section class="page-section clearfix">
+    <div class="container">
+      <div class="intro">
+        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" alt="..."
+             src={% static 'accounts/assets/img/intro.jpg' %}/>
+        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+          <h2 class="section-heading mb-4">
+            <span class="section-heading-upper">Bonjour</span>
+            <span class="section-heading-lower">{{ username }}</span>
+          </h2>
+          <p class="mb-3">text BDT</p>
+          <div class="intro-button mx-auto">
+            <a class="btn btn-primary btn-xl" href="#!">Vos recettes</a>
+            <a class="btn btn-primary btn-xl" href="#!">Favoris</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="page-section cta">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <div class="cta-inner text-center rounded">
+            <h2 class="section-heading mb-4">
+              <span class="section-heading-upper">Information</span>
+              <span class="section-heading-lower">Votre compte</span>
+            </h2>
+            <p class="mb-4">Vous pouvez effacer de maniere definitive toutes les donnees associees a votre compte.
+            Pour cela, il vous suffit de cliquer sur le bouton ce-dessous.</p>
+            <div class="button mx-auto">
+              <a class="btn btn-danger btn-xl" href={% url 'delete' %}>Fermer votre compte</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 {% endblock %}
