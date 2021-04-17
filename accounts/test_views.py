@@ -4,9 +4,8 @@ Tests for the views of the accounts app
 import shutil
 
 from io import BytesIO
-from unittest import skip
-
 from PIL import Image
+
 from django.contrib import auth
 from django.test import TestCase
 
