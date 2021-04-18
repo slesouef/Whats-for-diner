@@ -16,6 +16,8 @@ from .forms import SignUpForm, UpdateForm
 logger = logging.getLogger(__name__)
 
 
+@csrf_protect
+@sensitive_post_parameters()
 @never_cache
 def signup(request):
     """
@@ -48,10 +50,22 @@ def profile(request):
     """
     display the user's profile page
     """
-    return render(request, "accounts/profile.html")
+    context = {}
+    user = request.user
+    context["username"] = user.username
+    context["first_name"] = user.first_name
+    context["last_name"] = user.last_name
+    context["email"] = user.email
+    if user.avatar:
+        context["avatar"] = user.avatar
+    else:
+        context["avatar"] = False
+    return render(request, "accounts/profile.html", context)
 
 
 @login_required
+@csrf_protect
+@sensitive_post_parameters()
 def update(request):
     """
     Display the user information update page

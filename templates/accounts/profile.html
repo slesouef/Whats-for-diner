@@ -7,17 +7,48 @@
   <section class="page-section clearfix">
     <div class="container">
       <div class="intro">
+        {% if avatar %}
         <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" alt="..."
-             src={% static 'accounts/assets/img/intro.jpg' %}/>
+             src="{{ avatar.url }}" />
+        {% else %}
+        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" alt="..."
+             src={% static 'accounts/assets/img/food.jpg' %}/>
+        {% endif %}
         <div class="intro-text left-0 text-center bg-faded p-5 rounded">
           <h2 class="section-heading mb-4">
             <span class="section-heading-upper">Bonjour</span>
             <span class="section-heading-lower">{{ username }}</span>
           </h2>
-          <p class="mb-3">text BDT</p>
+          <p class="mb-3">Votre compte</p>
+          <ul class="list-unstyled list-user mb-5 text-left mx-auto">
+            <li class="list-unstyled-item list-user-item d-flex">
+              Prénom
+              {% if first_name %}
+              <span class="ml-auto">{{ first_name }}</span>
+              {% else %}
+                <span class="ml-auto">pas de prénom</span>
+              {% endif %}
+            </li>
+            <li class="list-unstyled-item list-user-item d-flex">
+              Nom
+              {% if last_name %}
+              <span class="ml-auto">{{ last_name }}</span>
+              {% else %}
+                <span class="ml-auto">pas de nom</span>
+              {% endif %}
+            </li>
+            <li class="list-unstyled-item list-user-item d-flex">
+              Adresse email
+              {% if email %}
+              <span class="ml-auto">{{ email }}</span>
+              {% else %}
+                <span class="ml-auto">pas d'adresse email</span>
+              {% endif %}
+            </li>
+          </ul>
           <div class="intro-button mx-auto">
-            <a class="btn btn-primary btn-xl" href="#!">Vos recettes</a>
-            <a class="btn btn-primary btn-xl" href="#!">Favoris</a>
+            <a class="btn btn-primary btn-xl mr-2" href="#!">Vos recettes</a>
+            <a class="btn btn-primary btn-xl ml-2" href="#!">Vos favoris</a>
           </div>
         </div>
       </div>
@@ -32,7 +63,7 @@
               <span class="section-heading-upper">Information</span>
               <span class="section-heading-lower">Votre compte</span>
             </h2>
-            <p class="mb-4">Vous pouvez effacer de maniere definitive toutes les donnees associees a votre compte.
+            <p class="mb-4">Vous pouvez effacer de maniere definitive toutes les donnees associées a votre compte.
             Pour cela, il vous suffit de cliquer sur le bouton ce-dessous.</p>
             <div class="button mx-auto">
               <a class="btn btn-danger btn-xl" href={% url 'delete' %}>Fermer votre compte</a>

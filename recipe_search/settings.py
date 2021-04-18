@@ -150,3 +150,4 @@ if os.environ.get('ENV') == 'PROD':
 # Media files (User Images)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
