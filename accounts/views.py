@@ -3,7 +3,7 @@ views for the accounts app
 """
 import logging
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
@@ -11,6 +11,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 
+from recipe_search.settings import LOGOUT_REDIRECT_URL
 from .forms import SignUpForm, UpdateForm
 
 logger = logging.getLogger(__name__)
@@ -135,3 +136,11 @@ def user_login(request):
         form = AuthenticationForm
         logger.debug("Login page requested")
         return render(request, "accounts/login.html", {"form": form})
+
+
+def user_logout(request):
+    """
+    Terminate the user session and redirect to the landing page
+    """
+    logout(request)
+    return redirect(LOGOUT_REDIRECT_URL)

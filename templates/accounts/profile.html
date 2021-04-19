@@ -4,12 +4,19 @@
 
   {% load static %}
 
+  <section class="navbar navbar-light bg-light">
+    <div class="container">
+      <a class="btn btn-primary" href={% url 'logout' %}>Déconnexion</a>
+    </div>
+  </section>
+
+
   <section class="page-section clearfix">
     <div class="container">
       <div class="intro">
         {% if avatar %}
         <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" alt="..."
-             src="{{ avatar.url }}" />
+             src={{ avatar.url }} />
         {% else %}
         <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" alt="..."
              src={% static 'accounts/assets/img/food.jpg' %}/>
@@ -63,7 +70,7 @@
               <span class="section-heading-upper">Information</span>
               <span class="section-heading-lower">Votre compte</span>
             </h2>
-            <p class="mb-4">Vous pouvez effacer de maniere definitive toutes les donnees associées a votre compte.
+            <p class="mb-4">Vous pouvez effacer de manière definitive toutes les donnees associées a votre compte.
             Pour cela, il vous suffit de cliquer sur le bouton ce-dessous.</p>
             <div class="button mx-auto">
               <a class="btn btn-danger btn-xl" href={% url 'delete' %}>Fermer votre compte</a>

@@ -8,9 +8,10 @@ from PIL import Image
 
 from django.contrib import auth
 from django.test import TestCase
+from django.urls import reverse
 
 from accounts.models import MyUser
-from recipe_search.settings import BASE_DIR
+from recipe_search.settings import BASE_DIR, LOGOUT_REDIRECT_URL
 
 
 def create_test_image(name=None):
@@ -71,7 +72,7 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         self.assertTrue(new_row[0].avatar)
         user = auth.get_user(self.client)
         self.assertTrue(user.is_authenticated)
-        shutil.rmtree(f"{BASE_DIR}/media")
+        shutil.rmtree(f"{BASE_DIR}/media/te")
 
     def test_update_page_unauthenticated(self):
         """Test the update page is not displayed when user is unauthenticated"""
@@ -103,6 +104,11 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         response = self.client.post("/account/login", form_data)
         self.assertTrue(user.is_authenticated)
         self.assertRedirects(response, "/account/profile")
+
+    def test_logout_user_not_authenticated(self):
+        """validate logout does not throw an error for a user not authenticated"""
+        response = self.client.get("/logout")
+        self.assertRedirects(response, reverse(LOGOUT_REDIRECT_URL))
 
 
 class AuthenticatedUserViewsTestCase(TestCase):
@@ -222,7 +228,7 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.assertRedirects(response, "/account/profile")
         user = MyUser.objects.filter(username="test")
         self.assertEqual("te/test/test.png", user[0].avatar)
-        shutil.rmtree(f"{BASE_DIR}/media")
+        shutil.rmtree(f"{BASE_DIR}/media/te")
 
     def test_update_avatar(self):
         """Test updating the avatar image"""
@@ -238,7 +244,7 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.assertRedirects(response, "/account/profile")
         user = MyUser.objects.filter(username="test")
         self.assertEqual("te/test/new_name.png", user[0].avatar)
-        shutil.rmtree(f"{BASE_DIR}/media")
+        shutil.rmtree(f"{BASE_DIR}/media/te")
 
     def test_add_all_user_information(self):
         """Test adding all user information"""
@@ -253,7 +259,7 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.assertEqual("last name", user[0].last_name)
         self.assertEqual("test@test.com", user[0].email)
         self.assertEqual("te/test/test.png", user[0].avatar)
-        shutil.rmtree(f"{BASE_DIR}/media")
+        shutil.rmtree(f"{BASE_DIR}/media/te")
 
     def test_update_all_user_information(self):
         """Test updating all user information"""
@@ -278,7 +284,7 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.assertEqual("new last name", user[0].last_name)
         self.assertEqual("new@mail.com", user[0].email)
         self.assertEqual("te/test/new_name.png", user[0].avatar)
-        shutil.rmtree(f"{BASE_DIR}/media")
+        shutil.rmtree(f"{BASE_DIR}/media/te")
 
     def test_delete_page(self):
         """Test the display of the delete page"""
@@ -295,3 +301,8 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.assertRedirects(response, "/account/signup")
         deleted_user = MyUser.objects.filter(username="test")
         self.assertEqual(0, deleted_user.count(), "the user was not deleted")
+
+    def test_logout_user_authenticated(self):
+        """Test the logout redirect for an authenticated user"""
+        response = self.client.get("/logout")
+        self.assertRedirects(response, reverse(LOGOUT_REDIRECT_URL))
