@@ -1,0 +1,20 @@
+{% extends 'recipes/base.html' %}
+
+{% block content %}
+
+  <section class="page-section cta" id="signup">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <div class="cta-inner text-center rounded">
+            <form class="col-xl-8 mx-auto " method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-primary">Créer la recette</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

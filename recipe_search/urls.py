@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path
 
 from accounts import views as accounts_views
+from recipes import views as recipes_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('account/delete', accounts_views.delete, name='delete'),
     path('account/login', accounts_views.user_login, name='login'),
     path('logout', accounts_views.user_logout, name='logout'),
+    path('recipe/create', recipes_views.create_recipe, name='create')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
