@@ -14,7 +14,6 @@ class Categories(models.Model):
     Categories have a name
     """
     name = models.CharField(max_length=255, unique=True)
-    creationDate = models.DateTimeField(auto_now_add=True)
 
 
 class Content(models.Model):
