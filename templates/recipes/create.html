@@ -1,5 +1,6 @@
 {% extends 'recipes/base.html' %}
-
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
 {% block content %}
 
   <section class="page-section cta" id="signup">
@@ -19,10 +20,10 @@
             <div class="text-left">
               <label id="ingredients" class="col-form-label-lg">Ingredients</label>
               <div id="ingredients_list">
-                <div class="form-inline">
-                  {{ ingredients.management_form }}
+                <table>
+                  {{ ingredients.management_form|crispy }}
                   {% for form in ingredients.forms %}
-                    <tr class="formset_row-{{ formset.prefix }}">
+                    <tr class="formset_row-{{ ingredients.prefix }}">
                       {% for field in form.visible_fields %}
                         <td>
                           {# Include the hidden fields in the form #}
@@ -32,26 +33,23 @@
                             {% endfor %}
                           {% endif %}
                           {{ field.errors.as_ul }}
-                          {{ field }}
+                          {{ field|as_crispy_field }}
                         </td>
                       {% endfor %}
                     </tr>
                   {% endfor %}
-                </div>
-              </div>
-              <div>
-                <span class="btn-link" id="add_ingredient">Ajouter un ingredient</span>
+                </table>
               </div>
             </div>
           </form>
           <div class="mx-auto">
             <div class="text-left">
               <label for="id_recipe" class="col-form-label-lg">Recette</label>
-              <div id="steps_list">
-                <div class="form-inline">
-                  {{ steps.management_form }}
+              <table id="steps_list">
+                <table>
+                  {{ steps.management_form|crispy }}
                   {% for form in steps.forms %}
-                    <tr class="formset_row-{{ formset.prefix }}">
+                    <tr class="formset_row-{{ steps.prefix }}">
                       {% for field in form.visible_fields %}
                         <td>
                           {# Include the hidden fields in the form #}
@@ -61,18 +59,18 @@
                             {% endfor %}
                           {% endif %}
                           {{ field.errors.as_ul }}
-                          {{ field }}
+                          {{ field|as_crispy_field }}
                         </td>
                       {% endfor %}
                     </tr>
                   {% endfor %}
-                </div>
-              </div>
+                </table>
             </div>
-            <button type="submit" class="btn btn-outline-primary mt-3" form="recipeForm">Créer la recette</button>
           </div>
+          <button type="submit" class="btn btn-outline-primary mt-3" form="recipeForm">Créer la recette</button>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
