@@ -22,8 +22,8 @@ class Content(models.Model):
     Links ingredients and recipes with a quantity for each ingredients
     """
     recipe = models.ForeignKey("Recipes", on_delete=models.CASCADE)
-    ingredient = models.ForeignKey("Ingredients", on_delete=models.CASCADE)
-    quantity = models.CharField(max_length=255)
+    index = models.SmallIntegerField(null=False)
+    instructions = models.TextField()
     creationDate = models.DateTimeField(auto_now_add=True)
     modificationDate = models.DateTimeField(auto_now=True)
 
@@ -32,8 +32,11 @@ class Ingredients(models.Model):
     """
     Table of all the ingredients used in the recipes
     """
+    recipe = models.ForeignKey("Recipes", on_delete=models.CASCADE)
     name = models.CharField(max_length=255, unique=True)
+    quantity = models.CharField(max_length=255)
     creationDate = models.DateTimeField(auto_now_add=True)
+    modificationDate = models.DateTimeField(auto_now=True)
 
 
 class Recipes(models.Model):
@@ -45,7 +48,6 @@ class Recipes(models.Model):
     rating = models.IntegerField(blank=True, null=True)
     creator = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     category = models.ForeignKey("Categories", on_delete=models.CASCADE)
-    ingredients = models.ManyToManyField("Ingredients", through="Content")
     creationDate = models.DateTimeField(auto_now_add=True)
     modificationDate = models.DateTimeField(auto_now=True)
 
