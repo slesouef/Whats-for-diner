@@ -4,13 +4,72 @@
 
   <section class="page-section cta" id="signup">
     <div class="container">
-      <div class="row">
-        <div class="col-xl-9 mx-auto">
-          <div class="cta-inner text-center rounded">
-            <form class="col-xl-8 mx-auto " method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-outline-primary">Créer la recette</button>
-            </form>
+      <div class="mx-auto">
+        <div class="cta-inner text-center rounded">
+          <form class="mx-auto" method="post" enctype="multipart/form-data" id="recipeForm">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="form-row text-left">
+                <div class="form-group">
+                  <label for="{{ field.auto_id }}" class="col-form-label-lg mr-auto">{{ field.label }}</label>
+                  {{ field }}
+                </div>
+              </div>
+            {% endfor %}
+            <div class="text-left">
+              <label id="ingredients" class="col-form-label-lg">Ingredients</label>
+              <div id="ingredients_list">
+                <div class="form-inline">
+                  {{ ingredients.management_form }}
+                  {% for form in ingredients.forms %}
+                    <tr class="formset_row-{{ formset.prefix }}">
+                      {% for field in form.visible_fields %}
+                        <td>
+                          {# Include the hidden fields in the form #}
+                          {% if forloop.first %}
+                            {% for hidden in form.hidden_fields %}
+                              {{ hidden }}
+                            {% endfor %}
+                          {% endif %}
+                          {{ field.errors.as_ul }}
+                          {{ field }}
+                        </td>
+                      {% endfor %}
+                    </tr>
+                  {% endfor %}
+                </div>
+              </div>
+              <div>
+                <span class="btn-link" id="add_ingredient">Ajouter un ingredient</span>
+              </div>
+            </div>
+          </form>
+          <div class="mx-auto">
+            <div class="text-left">
+              <label for="id_recipe" class="col-form-label-lg">Recette</label>
+              <div id="steps_list">
+                <div class="form-inline">
+                  {{ steps.management_form }}
+                  {% for form in steps.forms %}
+                    <tr class="formset_row-{{ formset.prefix }}">
+                      {% for field in form.visible_fields %}
+                        <td>
+                          {# Include the hidden fields in the form #}
+                          {% if forloop.first %}
+                            {% for hidden in form.hidden_fields %}
+                              {{ hidden }}
+                            {% endfor %}
+                          {% endif %}
+                          {{ field.errors.as_ul }}
+                          {{ field }}
+                        </td>
+                      {% endfor %}
+                    </tr>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary mt-3" form="recipeForm">Créer la recette</button>
           </div>
         </div>
       </div>
