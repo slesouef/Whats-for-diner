@@ -15,6 +15,9 @@ class Categories(models.Model):
     """
     name = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Content(models.Model):
     """
@@ -33,7 +36,7 @@ class Ingredients(models.Model):
     Table of all the ingredients used in the recipes
     """
     recipe = models.ForeignKey("Recipes", on_delete=models.CASCADE)
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     quantity = models.CharField(max_length=255)
     creationDate = models.DateTimeField(auto_now_add=True)
     modificationDate = models.DateTimeField(auto_now=True)
