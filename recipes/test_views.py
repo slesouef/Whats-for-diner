@@ -106,6 +106,25 @@ class RecipesViewsTestCase(TestCase):
         self.assertEqual("first", new_step[0].instructions)
         self.assertEqual(0, new_step[0].index)
 
+    def test_get_recipe_view(self):
+        """Test the page is displayed properly"""
+        form_data = {'name': 'view',
+                     'category': self.category_id,
+                     'ingredient-TOTAL_FORMS': '1',
+                     'ingredient-INITIAL_FORMS': '0',
+                     'ingredient-0-name': 'another',
+                     'ingredient-0-quantity': '1',
+                     'step-TOTAL_FORMS': '1',
+                     'step-INITIAL_FORMS': '0',
+                     'step-0-instructions': 'extra'}
+        self.client.post("/recipe/create", data=form_data)
+        new_recipe = Recipes.objects.filter(name="view").first()
+        url = f"/recipe/details/{new_recipe.id}"
+        response = self.client.get(url)
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, "recipes/base.html")
+        self.assertTemplateUsed(response, "recipes/details.html")
+
 
 class UnauthenticatedUserTestCases(TestCase):
     """

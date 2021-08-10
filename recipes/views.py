@@ -47,3 +47,12 @@ def create_recipe(request):
     else:
         return render(request, "recipes/create.html",
                       {"form": recipe, "ingredients": ingredients, "steps": steps})
+
+
+@login_required
+def recipe_details(request, rid):
+    recipe = Recipes.objects.filter(id=rid).first()
+    ingredients = Ingredients.objects.filter(recipe_id=recipe.id)
+    steps = Content.objects.filter(recipe_id=recipe.id).order_by("index")
+    return render(request, "recipes/details.html",
+                  {"recipe": recipe, "ingredients_list": ingredients, "steps_list": steps})
