@@ -29,5 +29,6 @@ urlpatterns = [
     path('account/delete', accounts_views.delete, name='delete'),
     path('account/login', accounts_views.user_login, name='login'),
     path('logout', accounts_views.user_logout, name='logout'),
-    path('recipe/create', recipes_views.create_recipe, name='create')
+    path('recipe/create', recipes_views.create_recipe, name='create'),
+    path('recipe/details/<int:rid>', recipes_views.recipe_details, name='details'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
