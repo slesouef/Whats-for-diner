@@ -1,0 +1,58 @@
+[
+  {
+    "model": "recipes.Categories",
+    "id": 1,
+    "fields": {
+      "name": "Cocktails"
+    }
+  },
+  {
+    "model": "recipes.Categories",
+    "id": 2,
+    "fields": {
+      "name": "Apéritifs"
+    }
+  },
+  {
+    "model": "recipes.Categories",
+    "id": 3,
+    "fields": {
+      "name": "Entrées"
+    }
+  },
+  {
+    "model": "recipes.Categories",
+    "id": 4,
+    "fields": {
+      "name": "Soupes"
+    }
+  },
+  {
+    "model": "recipes.Categories",
+    "id": 5,
+    "fields": {
+      "name": "Plats"
+    }
+  },
+  {
+    "model": "recipes.Categories",
+    "id": 6,
+    "fields": {
+      "name": "Desserts"
+    }
+  },
+  {
+    "model": "recipes.Categories",
+    "id": 7,
+    "fields": {
+      "name": "Petit-Déjeuner"
+    }
+  },
+  {
+    "model": "recipes.Categories",
+    "id": 8,
+    "fields": {
+      "name": "Sauces"
+    }
+  }
+]
