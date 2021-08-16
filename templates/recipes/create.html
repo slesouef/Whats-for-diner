@@ -46,7 +46,6 @@
               <div class="text-left">
                 <label for="id_recipe" class="col-form-label-lg">Recette</label>
                 <table id="steps_list">
-                  <table>
                     {{ steps.management_form|crispy }}
                     {% for form in steps.forms %}
                       <tr class="formset_row-{{ steps.prefix }}">
@@ -71,7 +70,6 @@
           <button type="submit" class="btn btn-outline-primary mt-3" form="recipeForm">Créer la recette</button>
         </div>
       </div>
-    </div>
     </div>
   </section>
   <br>

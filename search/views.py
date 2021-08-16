@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def landing(request):
+    if request.method == "POST":
+        print(request.POST)
+        return render(request, "search/base.html")
+    else:
+        return render(request, "search/base.html")
