@@ -91,8 +91,7 @@ class RecipesAppModelsTest(TestCase):
         self.assertEqual(1, len(self.recipe.content_set.values()))
         self.assertIn(self.content, self.recipe.content_set.all())
 
-    @skip("recipe page not implemented")
     def test_recipes_model_get_absolute_url(self):
         """validate the recipe URL format"""
         url = self.recipe.get_absolute_url()
-        self.assertIn(self.recipe.id, url)
+        self.assertIn(self.recipe.id.__str__(), url)

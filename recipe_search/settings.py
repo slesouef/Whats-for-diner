@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountConfig',
     'recipes.apps.RecipesConfig',
+    'search.apps.SearchConfig',
     'crispy_forms',
 ]
 

@@ -20,6 +20,7 @@ from django.urls import path
 
 from accounts import views as accounts_views
 from recipes import views as recipes_views
+from search import views as search_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,4 +32,5 @@ urlpatterns = [
     path('logout', accounts_views.user_logout, name='logout'),
     path('recipe/create', recipes_views.create_recipe, name='create'),
     path('recipe/details/<int:rid>', recipes_views.recipe_details, name='details'),
+    path('', search_views.landing, name='landing'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

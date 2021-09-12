@@ -1,0 +1,352 @@
+[
+{
+  "model": "accounts.myuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$9smXULyZOlxeXFaXspAsxh$L/rga2xYxfY8uRTEwLJdqFQMKZWbQrWdn+V2fHswu1A=",
+    "last_login": "2021-08-21T14:39:47.304Z",
+    "is_superuser": false,
+    "username": "test",
+    "first_name": "test",
+    "last_name": "test",
+    "email": "test@test.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-08-21T14:33:08.726Z",
+    "avatar": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "recipes.categories",
+  "pk": 1,
+  "fields": {
+    "name": "Category1"
+  }
+},
+{
+  "model": "recipes.categories",
+  "pk": 2,
+  "fields": {
+    "name": "Category2"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 1,
+  "fields": {
+    "recipe": 1,
+    "name": "chorizo",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:42:50.600Z",
+    "modificationDate": "2021-08-21T14:42:50.600Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 2,
+  "fields": {
+    "recipe": 1,
+    "name": "galette",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:42:50.615Z",
+    "modificationDate": "2021-08-21T14:42:50.615Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 3,
+  "fields": {
+    "recipe": 1,
+    "name": "champignons",
+    "quantity": "100g",
+    "creationDate": "2021-08-21T14:42:50.615Z",
+    "modificationDate": "2021-08-21T14:42:50.615Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 4,
+  "fields": {
+    "recipe": 2,
+    "name": "chorizo",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:44:16.032Z",
+    "modificationDate": "2021-08-21T14:44:16.032Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 5,
+  "fields": {
+    "recipe": 2,
+    "name": "galette",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:44:16.032Z",
+    "modificationDate": "2021-08-21T14:44:16.032Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 6,
+  "fields": {
+    "recipe": 2,
+    "name": "jambon",
+    "quantity": "100g",
+    "creationDate": "2021-08-21T14:44:16.032Z",
+    "modificationDate": "2021-08-21T14:44:16.032Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 7,
+  "fields": {
+    "recipe": 3,
+    "name": "galette",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:45:53.082Z",
+    "modificationDate": "2021-08-21T14:45:53.082Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 8,
+  "fields": {
+    "recipe": 3,
+    "name": "champignons",
+    "quantity": "100g",
+    "creationDate": "2021-08-21T14:45:53.088Z",
+    "modificationDate": "2021-08-21T14:45:53.088Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 9,
+  "fields": {
+    "recipe": 3,
+    "name": "jambon",
+    "quantity": "100g",
+    "creationDate": "2021-08-21T14:45:53.088Z",
+    "modificationDate": "2021-08-21T14:45:53.088Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 10,
+  "fields": {
+    "recipe": 4,
+    "name": "fraise tagada",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:50:33.136Z",
+    "modificationDate": "2021-08-21T14:50:33.136Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 11,
+  "fields": {
+    "recipe": 4,
+    "name": "banane",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:50:33.136Z",
+    "modificationDate": "2021-08-21T14:50:33.136Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 12,
+  "fields": {
+    "recipe": 5,
+    "name": "quelque chose",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:52:27.535Z",
+    "modificationDate": "2021-08-21T14:52:27.535Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 13,
+  "fields": {
+    "recipe": 6,
+    "name": "vodka",
+    "quantity": "30ml",
+    "creationDate": "2021-08-21T14:53:17.692Z",
+    "modificationDate": "2021-08-21T14:53:17.692Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 14,
+  "fields": {
+    "recipe": 7,
+    "name": "riz",
+    "quantity": "500g",
+    "creationDate": "2021-08-21T14:56:05.657Z",
+    "modificationDate": "2021-08-21T14:56:05.657Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 15,
+  "fields": {
+    "recipe": 7,
+    "name": "chorizo",
+    "quantity": "1",
+    "creationDate": "2021-08-21T14:56:05.657Z",
+    "modificationDate": "2021-08-21T14:56:05.657Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 16,
+  "fields": {
+    "recipe": 7,
+    "name": "crevettes",
+    "quantity": "200g",
+    "creationDate": "2021-08-21T14:56:05.657Z",
+    "modificationDate": "2021-08-21T14:56:05.657Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 17,
+  "fields": {
+    "recipe": 8,
+    "name": "galette",
+    "quantity": "2",
+    "creationDate": "2021-08-21T15:00:45.662Z",
+    "modificationDate": "2021-08-21T15:00:45.662Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 18,
+  "fields": {
+    "recipe": 9,
+    "name": "linguine",
+    "quantity": "250g",
+    "creationDate": "2021-08-21T15:01:36.012Z",
+    "modificationDate": "2021-08-21T15:01:36.012Z"
+  }
+},
+{
+  "model": "recipes.ingredients",
+  "pk": 19,
+  "fields": {
+    "recipe": 9,
+    "name": "champignons",
+    "quantity": "200g",
+    "creationDate": "2021-08-21T15:01:36.012Z",
+    "modificationDate": "2021-08-21T15:01:36.012Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 1,
+  "fields": {
+    "name": "galette chorizo champignons",
+    "rating": null,
+    "creator": 1,
+    "category": 1,
+    "creationDate": "2021-08-21T14:42:50.600Z",
+    "modificationDate": "2021-08-21T14:42:50.600Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 2,
+  "fields": {
+    "name": "recette 2",
+    "rating": null,
+    "creator": 1,
+    "category": 2,
+    "creationDate": "2021-08-21T14:44:16.032Z",
+    "modificationDate": "2021-08-21T14:44:16.032Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 3,
+  "fields": {
+    "name": "recette 3",
+    "rating": null,
+    "creator": 1,
+    "category": 1,
+    "creationDate": "2021-08-21T14:45:53.082Z",
+    "modificationDate": "2021-08-21T14:45:53.082Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 4,
+  "fields": {
+    "name": "chorizo banane",
+    "rating": null,
+    "creator": 1,
+    "category": 2,
+    "creationDate": "2021-08-21T14:50:33.136Z",
+    "modificationDate": "2021-08-21T14:50:33.136Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 5,
+  "fields": {
+    "name": "pousse galette",
+    "rating": null,
+    "creator": 1,
+    "category": 1,
+    "creationDate": "2021-08-21T14:52:27.535Z",
+    "modificationDate": "2021-08-21T14:52:27.535Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 6,
+  "fields": {
+    "name": "rince champignons",
+    "rating": null,
+    "creator": 1,
+    "category": 2,
+    "creationDate": "2021-08-21T14:53:17.692Z",
+    "modificationDate": "2021-08-21T14:53:17.692Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 7,
+  "fields": {
+    "name": "paella",
+    "rating": null,
+    "creator": 1,
+    "category": 1,
+    "creationDate": "2021-08-21T14:56:05.657Z",
+    "modificationDate": "2021-08-21T14:56:05.657Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 8,
+  "fields": {
+    "name": "chips breton",
+    "rating": null,
+    "creator": 1,
+    "category": 2,
+    "creationDate": "2021-08-21T15:00:45.646Z",
+    "modificationDate": "2021-08-21T15:00:45.646Z"
+  }
+},
+{
+  "model": "recipes.recipes",
+  "pk": 9,
+  "fields": {
+    "name": "pates",
+    "rating": null,
+    "creator": 1,
+    "category": 1,
+    "creationDate": "2021-08-21T15:01:36.012Z",
+    "modificationDate": "2021-08-21T15:01:36.012Z"
+  }
+}
+]

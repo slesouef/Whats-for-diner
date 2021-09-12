@@ -56,4 +56,4 @@ class Recipes(models.Model):
 
     def get_absolute_url(self):
         """method to create the url for a specific recipe"""
-        return reverse("view_recipe", args=[int(self.id)])
+        return reverse("details", args=[int(self.id)])

@@ -49,7 +49,6 @@ def create_recipe(request):
                       {"form": recipe, "ingredients": ingredients, "steps": steps})
 
 
-@login_required
 def recipe_details(request, rid):
     recipe = Recipes.objects.filter(id=rid).first()
     ingredients = Ingredients.objects.filter(recipe_id=recipe.id)
