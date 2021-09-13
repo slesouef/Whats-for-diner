@@ -1,7 +1,7 @@
 """
 views for the recipes app
 """
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .forms import RecipeNameForm, IngredientsFormSet, ContentFormSet
@@ -40,13 +40,24 @@ def create_recipe(request):
                     content.instructions = form.cleaned_data["instructions"]
                     content.save()
                     index += 1
-            return redirect("profile")
+            return redirect(r.get_absolute_url())
         else:
             return render(request, "recipes/create.html",
                           {"form": recipe, "ingredients": ingredients, "steps": steps})
     else:
         return render(request, "recipes/create.html",
                       {"form": recipe, "ingredients": ingredients, "steps": steps})
+
+
+@login_required
+def update_recipe(request, rid):
+    recipe = get_object_or_404(Recipes, id=rid)
+    recipe_form = RecipeNameForm(request.POST or None, instance=recipe)
+    ingredients_formset = IngredientsFormSet(prefix="ingredient", instance=recipe)
+    steps_formset = ContentFormSet(prefix="step", instance=recipe)
+    return render(request, "recipes/update.html", {"recipe": recipe_form,
+                                                   "ingredients": ingredients_formset,
+                                                   "steps": steps_formset})
 
 
 def recipe_details(request, rid):
