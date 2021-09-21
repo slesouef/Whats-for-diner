@@ -32,7 +32,7 @@ class RecipesViewsTestCase(TestCase):
         """Test the page is displayed properly"""
         response = self.client.get("/recipe/create")
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, "recipes/base.html")
+        self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "recipes/create.html")
 
     def test_post_invalid_recipe_name(self):
@@ -92,8 +92,8 @@ class RecipesViewsTestCase(TestCase):
                      'step-INITIAL_FORMS': '0',
                      'step-0-instructions': 'first'}
         response = self.client.post("/recipe/create", data=form_data)
-        self.assertRedirects(response, "/account/profile")
         new_recipe = Recipes.objects.filter(name="test")
+        self.assertRedirects(response, f"/recipe/details/{new_recipe[0].id}")
         self.assertEqual(1, len(new_recipe))
         self.assertEqual("test", new_recipe[0].name)
         self.assertEqual("test category", new_recipe[0].category.name)
@@ -122,7 +122,7 @@ class RecipesViewsTestCase(TestCase):
         url = f"/recipe/details/{new_recipe.id}"
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, "recipes/base.html")
+        self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "recipes/details.html")
 
 

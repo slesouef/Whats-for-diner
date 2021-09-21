@@ -36,7 +36,7 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         """Test that the signup page returns correctly"""
         response = self.client.get("/account/signup")
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "accounts/signup.html")
 
     def test_signup_mandatory_only(self):
@@ -93,7 +93,7 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         """Test the login page displays correctly"""
         response = self.client.get("/account/login")
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "accounts/login.html")
 
     def test_login(self):
@@ -130,14 +130,14 @@ class AuthenticatedUserViewsTestCase(TestCase):
         """Test that the profile page displays correctly"""
         response = self.client.get("/account/profile")
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "accounts/profile.html")
 
     def test_update_page(self):
         """Test the update page is displayed properly"""
         response = self.client.get("/account/update")
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "accounts/update.html")
 
     def test_add_first_name(self):
@@ -290,7 +290,7 @@ class AuthenticatedUserViewsTestCase(TestCase):
         """Test the display of the delete page"""
         response = self.client.get("/account/delete")
         self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, "accounts/base.html")
+        self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "accounts/confirmation.html")
 
     def test_delete_user_account(self):
