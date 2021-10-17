@@ -26,8 +26,9 @@
 <!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'landing' %}">On mange quoi ce soir?</a>
+    <a class="navbar-brand col-lg-8" href="{% url 'landing' %}">On mange quoi ce soir?</a>
     {% if user.is_authenticated %}
+      <a class="btn btn-primary" href={% url 'profile' %}>Votre profil</a>
       <a class="btn btn-primary" href={% url 'logout' %}>Déconnexion</a>
     {% else %}
       <a class="btn btn-primary" href="{% url 'login' %}">Login</a>

@@ -12,12 +12,12 @@
           <div class="col-xl-9 col-lg-10 mx-auto">
             <div class="bg-faded rounded p-5">
               <h2 class="section-heading mb-4">
-                <span class="section-heading-lower">Are you sure?</span>
+                <span class="section-heading-lower">Confirmation</span>
               </h2>
-              <p>You are about to delete all the information associated with your account</p>
+              <p>Vous allez effacer la totalité des informations associées à votre compte</p>
               <form method="post">{% csrf_token %}
-                <p>Are you sure you want to delete your account?</p>
-                <input type="submit" value="Confirm">
+                <p>Voulez-vous fermer votre compte?</p>
+                <input  class="btn btn-danger" type="submit" value="Fermer le compte">
               </form>
             </div>
           </div>
