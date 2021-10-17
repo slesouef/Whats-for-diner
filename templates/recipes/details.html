@@ -1,12 +1,8 @@
-{% extends 'recipes/base.html' %}
+{% extends 'search/base.html' %}
+{% load static %}
 
 {% block content %}
-
-  <section class="navbar navbar-light bg-light">
-    <div class="container">
-      <a class="btn btn-primary" href={% url 'logout' %}>Déconnexion</a>
-    </div>
-  </section>
+  <link href="{% static 'recipes/css/styles.css' %}" rel="stylesheet">
 
   <section class="page-section">
     <div class="container">

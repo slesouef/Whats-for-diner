@@ -1,7 +1,7 @@
 """
 views for the recipes app
 """
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .forms import RecipeNameForm, IngredientsFormSet, ContentFormSet
@@ -19,39 +19,59 @@ def create_recipe(request):
         ingredients = IngredientsFormSet(request.POST, prefix="ingredient")
         steps = ContentFormSet(request.POST, prefix="step")
         if recipe.is_valid() and ingredients.is_valid() and steps.is_valid():
-            r = Recipes()
+            r = recipe.save(commit=False)
             r.creator = request.user
-            r.name = recipe.cleaned_data["name"]
-            r.category = recipe.cleaned_data["category"]
             r.save()
             for form in ingredients.forms:
                 if form.cleaned_data:
-                    ingredient = Ingredients()
+                    ingredient = form.save(commit=False)
                     ingredient.recipe = r
-                    ingredient.name = form.cleaned_data["name"]
-                    ingredient.quantity = form.cleaned_data["quantity"]
                     ingredient.save()
-            index = 0
-            for form in steps.forms:
+            for num, form in enumerate(steps.forms):
                 if form.cleaned_data:
-                    content = Content()
-                    content.recipe = r
-                    content.index = index
-                    content.instructions = form.cleaned_data["instructions"]
-                    content.save()
-                    index += 1
-            return redirect("profile")
+                    step = form.save(commit=False)
+                    step.recipe = r
+                    step.index = num
+                    step.save()
+            return redirect(r.get_absolute_url())
         else:
             return render(request, "recipes/create.html",
-                          {"form": recipe, "ingredients": ingredients, "steps": steps})
+                          {"recipe": recipe, "ingredients": ingredients, "steps": steps})
     else:
         return render(request, "recipes/create.html",
-                      {"form": recipe, "ingredients": ingredients, "steps": steps})
+                      {"recipe": recipe, "ingredients": ingredients, "steps": steps})
+
+
+@login_required
+def update_recipe(request, rid):
+    recipe = get_object_or_404(Recipes, id=rid)
+    recipe_form = RecipeNameForm(request.POST or None, instance=recipe)
+    ingredients_formset = IngredientsFormSet(request.POST or None, prefix="ingredient",
+                                             instance=recipe)
+    steps_formset = ContentFormSet(request.POST or None, prefix="step", instance=recipe)
+    if request.method == "POST":
+        if recipe_form.is_valid() and ingredients_formset.is_valid() and steps_formset.is_valid():
+            recipe_form.save()
+            ingredients_formset.save()
+            steps_formset.save(commit=False)
+            for num, obj in enumerate(steps_formset.new_objects):
+                obj.index = num
+                obj.save()
+            steps_formset.save()
+            return redirect(recipe.get_absolute_url())
+        else:
+            return render(request, "recipes/update.html", {"recipe": recipe_form,
+                                                           "ingredients": ingredients_formset,
+                                                           "steps": steps_formset})
+    else:
+        return render(request, "recipes/update.html", {"recipe": recipe_form,
+                                                       "ingredients": ingredients_formset,
+                                                       "steps": steps_formset})
 
 
 def recipe_details(request, rid):
     recipe = Recipes.objects.filter(id=rid).first()
     ingredients = Ingredients.objects.filter(recipe_id=recipe.id)
-    steps = Content.objects.filter(recipe_id=recipe.id).order_by("index")
+    steps = Content.objects.filter(recipe_id=recipe.id)
     return render(request, "recipes/details.html",
                   {"recipe": recipe, "ingredients_list": ingredients, "steps_list": steps})
