@@ -30,6 +30,9 @@ class Content(models.Model):
     creationDate = models.DateTimeField(auto_now_add=True)
     modificationDate = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["index"]
+
 
 class Ingredients(models.Model):
     """

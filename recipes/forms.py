@@ -37,7 +37,7 @@ class IngredientForm(ModelForm):
 
 
 IngredientsFormSet = inlineformset_factory(Recipes, Ingredients, form=IngredientForm, extra=1,
-                                           fields=["name", "quantity"], can_delete=False)
+                                           fields=["name", "quantity"], can_delete=True)
 
 
 class ContentForm(ModelForm):
@@ -53,5 +53,5 @@ class ContentForm(ModelForm):
         }
 
 
-ContentFormSet = inlineformset_factory(Recipes, Content, form=ContentForm, fields=["instructions"],
-                                       can_delete=False, extra=1)
+ContentFormSet = inlineformset_factory(Recipes, Content, form=ContentForm, extra=1,
+                                       fields=["instructions"], can_delete=True)
