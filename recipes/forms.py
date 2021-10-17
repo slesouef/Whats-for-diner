@@ -29,7 +29,7 @@ class IngredientForm(ModelForm):
 
     class Meta:
         model = Ingredients
-        exclude = [("creationDate",), ("modificationDate",)]
+        fields = ["name", "quantity"]
         labels = {
             "name": "Ingrédient",
             "quantity": "Quantité"
@@ -47,7 +47,7 @@ class ContentForm(ModelForm):
 
     class Meta:
         model = Content
-        exclude = [("index",), ("creationDate",), ("modificationDate",)]
+        fields = ["instructions"]
         labels = {
             "instructions": "Etape"
         }

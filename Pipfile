@@ -12,7 +12,7 @@ django-crispy-forms = "*"
 
 [dev-packages]
 coverage = "~=5.5"
-pylint = "~=2.7.4"
+pylint-django = "==2.4.3"
 
 [requires]
 python_version = "3.9"

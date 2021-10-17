@@ -112,9 +112,11 @@ class RecipesCreateTestCase(TestCase):
         self.assertEqual(0, new_step[0].index)
 
 
-class RecipesDetailsTestCase(TestCase):
+class UnauthenticatedUserTestCases(TestCase):
     """
     Validate the behaviour of the recipes details view
+    Validate the redirections in case the recipe create, recipe update, and show user list pages
+    are called by an unauthenticated user
     """
 
     @classmethod
@@ -138,22 +140,16 @@ class RecipesDetailsTestCase(TestCase):
         client.force_login(user)
         client.post("/recipe/create", data=form_data)
         new_recipe = Recipes.objects.filter(name="view").first()
-        cls.url = f"/recipe/details/{new_recipe.id}"
+        cls.detailsUrl = f"/recipe/details/{new_recipe.id}"
+        cls.updateUrl = f"/recipe/update/{new_recipe.id}"
         client.logout()
 
     def test_get_recipe_details(self):
         """Test the page is displayed properly"""
-        response = self.client.get(self.url)
+        response = self.client.get(self.detailsUrl)
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "recipes/details.html")
-
-
-class UnauthenticatedUserTestCases(TestCase):
-    """
-    Validate the redirections in case the recipe create and update pages are called
-    by an unauthenticated user
-    """
 
     def test_get_recipe_create_unauthenticated(self):
         """Verify user redirect to login"""
@@ -164,6 +160,21 @@ class UnauthenticatedUserTestCases(TestCase):
         """Verify user redirect to login"""
         response = self.client.post("/recipe/create")
         self.assertRedirects(response, "/account/login?next=/recipe/create")
+
+    def test_get_recipe_update_unauthenticated(self):
+        """Verify user redirect to login"""
+        response = self.client.get(self.updateUrl)
+        self.assertRedirects(response, f"/account/login?next={self.updateUrl}")
+
+    def test_post_recipe_update_unauthenticated(self):
+        """Verify user redirect to login"""
+        response = self.client.post(self.updateUrl)
+        self.assertRedirects(response, f"/account/login?next={self.updateUrl}")
+
+    def test_get_user_list_unauthenticated(self):
+        """Verify user redirect to login"""
+        response = self.client.post("/recipe/list")
+        self.assertRedirects(response, "/account/login?next=/recipe/list")
 
 
 class RecipesUpdateTestCase(TestCase):
@@ -285,3 +296,21 @@ class RecipesUpdateTestCase(TestCase):
         self.assertEqual(0, updated_steps[0].index)
         self.assertEqual("new step", updated_steps[1].instructions)
         # not testing index of new step as the passed form does not allow correct ordering
+
+
+class UserRecipeListTestCases(TestCase):
+    """
+    Validate the behaviour of the user list page
+    """
+
+    def setUp(self):
+        """Create an authenticated user"""
+        self.user = MyUser.objects.create_user(username="test")
+        self.client.force_login(self.user)
+
+    def test_get_user_list(self):
+        """test the page is displayed properly"""
+        response = self.client.get("/recipe/list")
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, "search/base.html")
+        self.assertTemplateUsed(response, "recipes/list.html")

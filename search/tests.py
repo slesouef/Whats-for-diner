@@ -1,9 +1,15 @@
+"""
+Test file for the search algorithm
+"""
 from django.test import TestCase
 
 from .search import get_results
 
 
 class SearchTest(TestCase):
+    """
+    Verify that the search algorithm returns the expected sets from fixture
+    """
     fixtures = ["test_recipes.json"]
 
     def test_search_single_term(self):
