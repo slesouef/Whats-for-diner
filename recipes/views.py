@@ -77,3 +77,11 @@ def recipe_details(request, rid):
     steps = Content.objects.filter(recipe_id=recipe.id)
     return render(request, "recipes/details.html",
                   {"recipe": recipe, "ingredients_list": ingredients, "steps_list": steps})
+
+
+@login_required
+def show_list(request):
+    """A page displaying all the user's recipe"""
+    user = request.user
+    recipes = Recipes.objects.filter(creator=user)
+    return render(request, 'recipes/list.html', {"results": recipes})
