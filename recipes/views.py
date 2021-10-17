@@ -19,21 +19,21 @@ def create_recipe(request):
         ingredients = IngredientsFormSet(request.POST, prefix="ingredient")
         steps = ContentFormSet(request.POST, prefix="step")
         if recipe.is_valid() and ingredients.is_valid() and steps.is_valid():
-            r = recipe.save(commit=False)
-            r.creator = request.user
-            r.save()
+            new_recipe = recipe.save(commit=False)
+            new_recipe.creator = request.user
+            new_recipe.save()
             for form in ingredients.forms:
                 if form.cleaned_data:
                     ingredient = form.save(commit=False)
-                    ingredient.recipe = r
+                    ingredient.recipe = new_recipe
                     ingredient.save()
             for num, form in enumerate(steps.forms):
                 if form.cleaned_data:
                     step = form.save(commit=False)
-                    step.recipe = r
+                    step.recipe = new_recipe
                     step.index = num
                     step.save()
-            return redirect(r.get_absolute_url())
+            return redirect(new_recipe.get_absolute_url())
         else:
             return render(request, "recipes/create.html",
                           {"recipe": recipe, "ingredients": ingredients, "steps": steps})
@@ -44,6 +44,7 @@ def create_recipe(request):
 
 @login_required
 def update_recipe(request, rid):
+    """A page to update an existing recipe"""
     recipe = get_object_or_404(Recipes, id=rid)
     recipe_form = RecipeNameForm(request.POST or None, instance=recipe)
     ingredients_formset = IngredientsFormSet(request.POST or None, prefix="ingredient",
@@ -70,6 +71,7 @@ def update_recipe(request, rid):
 
 
 def recipe_details(request, rid):
+    """A page displaying the content of a recipe"""
     recipe = Recipes.objects.filter(id=rid).first()
     ingredients = Ingredients.objects.filter(recipe_id=recipe.id)
     steps = Content.objects.filter(recipe_id=recipe.id)

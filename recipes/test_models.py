@@ -3,7 +3,6 @@ Test of the recipes app models
 """
 import datetime
 
-from unittest import skip
 from django.test import TestCase
 
 from accounts.models import MyUser
