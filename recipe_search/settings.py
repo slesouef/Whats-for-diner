@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$1%i5#0)oydv80!97sj9em0i%qp0fr#wv7!ix=!hqjmuow2s2&'
+SECRET_KEY = os.environ.get('SECRET_KEY', '$1%i5#0)oydv80!97sj9em0i%qp0fr#wv7!ix=!hqjmuow2s2&')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['51.159.66.3', 'localhost']
 
 # Application definition
 
@@ -96,14 +96,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'wfd_dev',
-            'USER': 'wfd_dev',
-            'PASSWORD': 'wfd_dev',
+            'NAME': 'WFD',
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWD'),
             'HOST': 'localhost',
-            'PORT': '5432',
-            'TEST': {
-                'NAME': 'test',
-            },
+            'PORT': '',
         },
     }
 
@@ -156,5 +153,9 @@ if os.environ.get('ENV') == 'PROD':
 
 # Media files (User Images)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+if os.environ.get('ENV') == 'TRAVIS':
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+    MEDIA_URL = '/media/'
+else:
+    MEDIA_ROOT = os.path.dirname('/var/www/diner.com/media/')
+    MEDIA_URL = '/media/'
