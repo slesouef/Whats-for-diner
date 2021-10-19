@@ -153,7 +153,7 @@ if os.environ.get('ENV') == 'PROD':
 
 # Media files (User Images)
 
-if os.environ.get('ENV') == 'TRAVIS':
+if os.environ.get('TRAVIS') == 'true':
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
     MEDIA_URL = '/media/'
 else:
