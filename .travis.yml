@@ -10,6 +10,7 @@ env:
   - DJANGO=3.2 DB=postgres
 # command to install dependencies
 install:
+  - echo '51.159.66.3 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEJvni8bHhCiUhO6TgrFoceKVJE7he9QwNUW8EyY2NSoxzxn0Rv29GmSYV0wTBGxWPuP7nwVVdPrwFPOyNZmDSk=' >> $HOME/.ssh/known_hosts
   - pipenv install
 before_script:
   - psql -c "CREATE DATABASE WFD_TEST;" -U postgres
