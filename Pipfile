@@ -9,6 +9,7 @@ pillow = "~=8.2.0"
 whitenoise = "~=5.2.0"
 psycopg2 = "~=2.8.6"
 django-crispy-forms = "*"
+gunicorn = "*"
 
 [dev-packages]
 coverage = "~=5.5"
