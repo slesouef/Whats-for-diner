@@ -124,3 +124,13 @@ footer.footer {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
+
+.recipe-result {
+  position: relative;
+  background-color: #73344e;
+  background-size: cover;
+}
+
+.result-text {
+  color: #8cc6e4;
+}
