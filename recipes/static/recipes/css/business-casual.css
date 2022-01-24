@@ -145,7 +145,7 @@ p {
 .cta {
   padding-top: 5rem;
   padding-bottom: 5rem;
-  background-color: rgb(15, 137, 185);
+  background-color: #4d1128;
 }
 
 .cta .cta-inner {
@@ -253,4 +253,12 @@ p {
 
 .font-weight-light {
   font-weight: 100 !important;
+}
+
+.add-row {
+  color: #b23678;
+}
+
+.delete-row {
+  color: #b23678;
 }
