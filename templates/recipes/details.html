@@ -8,10 +8,15 @@
       <div class="product-item">
         <div class="product-item-title d-flex">
           <div class="bg-faded p-5 d-flex m-auto rounded">
+          <span>
             <h2 class="section-heading mb-0">
               <span class="section-heading-upper">{{ recipe.category }}</span>
               <span class="section-heading-lower">{{ recipe.name }}</span>
             </h2>
+            {% if user.is_authenticated %}
+              <a class="btn btn-primary mt-2" href={% url 'recipeUpdate' rid=recipe.id %}>Mettre a jour</a>
+            {% endif %}
+          </span>
           </div>
         </div>
       </div>
