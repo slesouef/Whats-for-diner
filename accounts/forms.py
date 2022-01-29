@@ -4,6 +4,7 @@ Forms use to create and update user account
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm, TextInput, EmailInput, ClearableFileInput, PasswordInput, \
                          Form, CharField, EmailField, ImageField
+from django.utils.translation import gettext_lazy as _
 
 from .models import MyUser
 
@@ -18,6 +19,13 @@ class SignUpForm(ModelForm):
     class Meta:
         model = MyUser
         fields = ["username", "first_name", "last_name", "email", "avatar", "password"]
+        labels = {
+            "username": _("Nom d'Utilisateur"),
+            "first_name": _("Prénom"),
+            "last_name": _("Nom de Famille"),
+            "email": _("Adresse Email"),
+            "password": _("Mot de Passe")
+        }
         widgets = {
             "username": TextInput(attrs={"class": "form-control"}),
             "first_name": TextInput(attrs={"class": "form-control"}),
