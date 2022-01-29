@@ -44,7 +44,7 @@ class UpdateForm(Form):
                            widget=TextInput(attrs={"class": "form-control"}))
     last_name = CharField(required=False, max_length=150, label="Nom de Famille",
                           widget=TextInput(attrs={"class": "form-control"}))
-    email = EmailField(required=False, max_length=254, label="Adresse email",
+    email = EmailField(required=False, max_length=254, label="Adresse Email",
                        widget=EmailInput(attrs={"class": "form-control"}))
     avatar = ImageField(required=False, label="Avatar", widget=ClearableFileInput())
 
