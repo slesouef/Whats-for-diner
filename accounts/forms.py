@@ -1,6 +1,7 @@
 """
 Forms use to create and update user account
 """
+from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm, TextInput, EmailInput, ClearableFileInput, PasswordInput, \
                          Form, CharField, EmailField, ImageField
 
@@ -38,3 +39,14 @@ class UpdateForm(Form):
     email = EmailField(required=False, max_length=254, label="Adresse email",
                        widget=EmailInput(attrs={"class": "form-control"}))
     avatar = ImageField(required=False, label="Avatar", widget=ClearableFileInput())
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    """
+    Modify the authentication form to have labels in French
+    """
+
+    def __init__(self, request=None, *args, **kwargs):
+        super().__init__(request=None, *args, **kwargs)
+        self.fields["username"].label = "Nom d'Utilisateur"
+        self.fields["password"].label = "Mot de Passe"

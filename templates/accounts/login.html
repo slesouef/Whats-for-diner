@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-  <link href="{% static 'accounts/css/styles.css' %}" rel="stylesheet">
 
   <section class="page-section cta" id="signup">
     <div class="container">
@@ -28,7 +27,7 @@
                   </tr>
                 </table>
                 <br>
-                <input type="submit" value="login">
+                <input class="btn btn-primary" type="submit" value="Connexion">
                 <input type="hidden" name="next" value="{{ next }}">
               </form>
               <br>
