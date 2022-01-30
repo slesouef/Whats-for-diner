@@ -36,7 +36,7 @@ class UpdateFormTest(SimpleTestCase):
     def test_email_field_label(self):
         """Verify the label for the email field"""
         form = UpdateForm
-        self.assertEqual("Adresse email", form.declared_fields.get("email").label)
+        self.assertEqual("Adresse Email", form.declared_fields.get("email").label)
 
     def test_file_field_label(self):
         """Verify the label for the user avatar field"""
