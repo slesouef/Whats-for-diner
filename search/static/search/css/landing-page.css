@@ -138,3 +138,21 @@ footer.footer {
 .result-text {
   color: #73344e;
 }
+
+.result-category-text {
+  color:#737560;
+}
+
+.recipe-list {
+  position: relative;
+  background-color: #b23678;
+  background-size: cover;
+}
+
+.recipe-text {
+  color:#f8b395;
+}
+
+.recipe-category-text {
+  color:#fa842c;
+}
