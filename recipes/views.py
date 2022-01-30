@@ -72,7 +72,7 @@ def update_recipe(request, rid):
 
 def recipe_details(request, rid):
     """A page displaying the content of a recipe"""
-    recipe = Recipes.objects.filter(id=rid).first()
+    recipe = get_object_or_404(Recipes.objects.filter(id=rid))
     ingredients = Ingredients.objects.filter(recipe_id=recipe.id)
     steps = Content.objects.filter(recipe_id=recipe.id)
     return render(request, "recipes/details.html",
