@@ -15,7 +15,5 @@ def landing(request):
         recipes = get_results(query)
         if recipes:
             return render(request, "search/results.html", {"results": recipes})
-        else:
-            return render(request, "search/empty.html")
-    else:
-        return render(request, "search/landing.html")
+        return render(request, "search/empty.html")
+    return render(request, "search/landing.html")

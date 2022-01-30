@@ -42,7 +42,7 @@ def signup(request):
         else:
             form = SignUpForm()
             logger.debug("signup requested")
-        return render(request, "accounts/signup.html", {"form": form})
+    return render(request, "accounts/signup.html", {"form": form})
 
 
 @login_required
@@ -106,8 +106,7 @@ def delete(request):
         logger.info("account deleted successfully")
         logger.debug("account for user %s deleted successfully", {user.username})
         return redirect("landing")
-    else:
-        return render(request, "accounts/confirmation.html")
+    return render(request, "accounts/confirmation.html")
 
 
 @csrf_protect
@@ -134,7 +133,7 @@ def user_login(request):
     else:
         form = CustomAuthenticationForm
         logger.debug("Login page requested")
-        return render(request, "accounts/login.html", {"form": form})
+    return render(request, "accounts/login.html", {"form": form})
 
 
 def user_logout(request):
