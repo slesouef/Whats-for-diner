@@ -105,7 +105,7 @@ def delete(request):
         user.delete()
         logger.info("account deleted successfully")
         logger.debug("account for user %s deleted successfully", {user.username})
-        return redirect("signup")
+        return redirect("landing")
     else:
         return render(request, "accounts/confirmation.html")
 
