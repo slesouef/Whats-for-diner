@@ -34,12 +34,10 @@ def create_recipe(request):
                     step.index = num
                     step.save()
             return redirect(new_recipe.get_absolute_url())
-        else:
-            return render(request, "recipes/create.html",
-                          {"recipe": recipe, "ingredients": ingredients, "steps": steps})
-    else:
         return render(request, "recipes/create.html",
                       {"recipe": recipe, "ingredients": ingredients, "steps": steps})
+    return render(request, "recipes/create.html",
+                  {"recipe": recipe, "ingredients": ingredients, "steps": steps})
 
 
 @login_required
@@ -60,19 +58,17 @@ def update_recipe(request, rid):
                 obj.save()
             steps_formset.save()
             return redirect(recipe.get_absolute_url())
-        else:
-            return render(request, "recipes/update.html", {"recipe": recipe_form,
-                                                           "ingredients": ingredients_formset,
-                                                           "steps": steps_formset})
-    else:
         return render(request, "recipes/update.html", {"recipe": recipe_form,
                                                        "ingredients": ingredients_formset,
                                                        "steps": steps_formset})
+    return render(request, "recipes/update.html", {"recipe": recipe_form,
+                                                   "ingredients": ingredients_formset,
+                                                   "steps": steps_formset})
 
 
 def recipe_details(request, rid):
     """A page displaying the content of a recipe"""
-    recipe = Recipes.objects.filter(id=rid).first()
+    recipe = get_object_or_404(Recipes.objects.filter(id=rid))
     ingredients = Ingredients.objects.filter(recipe_id=recipe.id)
     steps = Content.objects.filter(recipe_id=recipe.id)
     return render(request, "recipes/details.html",

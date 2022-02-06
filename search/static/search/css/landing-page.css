@@ -21,10 +21,11 @@ h6 {
 header.masthead {
   position: relative;
   background-color: #343a40;
-  background: url("../img/bg-masthead.jpg") no-repeat center center;
+  background: url("../assets/img/masthead-background.jpg") center center;
   background-size: cover;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  max-height: 75vh;
 }
 
 header.masthead .overlay {
@@ -43,12 +44,16 @@ header.masthead h1 {
 
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
+    padding-top: 15rem;
+    padding-bottom: 15rem;
   }
   header.masthead h1 {
     font-size: 3rem;
   }
+}
+
+.showcase {
+  min-height: 75vh;
 }
 
 .showcase .showcase-text {
@@ -120,7 +125,43 @@ header.masthead h1 {
   opacity: 0.3;
 }
 
+.footer {
+  flex-shrink: 0;
+}
+
 footer.footer {
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+.recipe-result {
+  position: relative;
+  background-color: #8cc6e4;
+  background-size: cover;
+}
+
+.single-result {
+  min-height: 75vh;
+}
+
+.result-text {
+  color: #73344e;
+}
+
+.result-category-text {
+  color:#737560;
+}
+
+.recipe-list {
+  position: relative;
+  background-color: #b23678;
+  background-size: cover;
+}
+
+.recipe-text {
+  color:#f8b395;
+}
+
+.recipe-category-text {
+  color:#fa842c;
 }

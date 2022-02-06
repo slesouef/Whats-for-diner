@@ -298,7 +298,7 @@ class AuthenticatedUserViewsTestCase(TestCase):
         original_user = MyUser.objects.filter(username="test")
         self.assertEqual(1, original_user.count(), "the user does not exist")
         response = self.client.post("/account/delete")
-        self.assertRedirects(response, "/account/signup")
+        self.assertRedirects(response, "/")
         deleted_user = MyUser.objects.filter(username="test")
         self.assertEqual(0, deleted_user.count(), "the user was not deleted")
 

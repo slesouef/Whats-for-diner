@@ -41,9 +41,17 @@ class SearchTest(TestCase):
         self.assertTemplateUsed(response, "search/landing.html")
 
     def test_landing_view_post(self):
-        """Test the landing page is displayed properly"""
+        """Test the search result page is displayed properly"""
         context_data = {"query": "champignons"}
         response = self.client.post("/", data=context_data)
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "search/results.html")
+
+    def test_landing_post_empty(self):
+        """Test the empty results' page is displayed properly"""
+        context_data = {"query": "bob"}
+        response = self.client.post("/", data=context_data)
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, "search/base.html")
+        self.assertTemplateUsed(response, "search/empty.html")

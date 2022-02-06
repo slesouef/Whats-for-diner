@@ -5,14 +5,13 @@ import logging
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 
 from recipe_search.settings import LOGOUT_REDIRECT_URL
-from .forms import SignUpForm, UpdateForm
+from .forms import SignUpForm, UpdateForm, CustomAuthenticationForm
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +42,7 @@ def signup(request):
         else:
             form = SignUpForm()
             logger.debug("signup requested")
-        return render(request, "accounts/signup.html", {"form": form})
+    return render(request, "accounts/signup.html", {"form": form})
 
 
 @login_required
@@ -106,9 +105,8 @@ def delete(request):
         user.delete()
         logger.info("account deleted successfully")
         logger.debug("account for user %s deleted successfully", {user.username})
-        return redirect("signup")
-    else:
-        return render(request, "accounts/confirmation.html")
+        return redirect("landing")
+    return render(request, "accounts/confirmation.html")
 
 
 @csrf_protect
@@ -119,7 +117,7 @@ def user_login(request):
     Display the login page for a user
     """
     if request.method == 'POST':
-        form = AuthenticationForm(request=request, data=request.POST)
+        form = CustomAuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
@@ -133,9 +131,9 @@ def user_login(request):
         else:
             logger.debug("Login attempt with incorrect credentials")
     else:
-        form = AuthenticationForm
+        form = CustomAuthenticationForm
         logger.debug("Login page requested")
-        return render(request, "accounts/login.html", {"form": form})
+    return render(request, "accounts/login.html", {"form": form})
 
 
 def user_logout(request):
