@@ -140,6 +140,10 @@ footer.footer {
   background-size: cover;
 }
 
+.single-result {
+  min-height: 75vh;
+}
+
 .result-text {
   color: #73344e;
 }
