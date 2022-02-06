@@ -3,157 +3,233 @@
   {% load static %}
   <section class="showcase">
     <div class="container-fluid p-0">
-      {% for recipe in results %}
-        {% if forloop.counter0|divisibleby:2 %}
-          {% if recipe.category.name == 'Cocktails' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/cocktail.jpg' %})"></div>
-              <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
+      {% if results.count == 1 %}
+        {% if results.first.category.name == 'Cocktails' %}
+          <div class="row no-gutters recipe-result single-result">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url({% static 'search/assets/img/cocktail.jpg' %})"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+              <h2><a class="result-text" href="{{ results.first.get_absolute_url }}">{{ results.first.name }}</a></h2>
+              <p class="lead mb-0 font-weight-normal result-category-text">{{ results.first.category }}</p>
             </div>
-          {% elif recipe.category.name == 'Apéritifs' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/aperitif.jpg' %})"></div>
-              <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
+          </div>
+        {% elif results.first.category.name == 'Apéritifs' %}
+          <div class="row no-gutters recipe-result">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url({% static 'search/assets/img/aperitif.jpg' %})"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+              <h2><a class="result-text" href="{{ results.first.get_absolute_url }}">{{ results.first.name }}</a></h2>
+              <p class="lead mb-0 font-weight-normal result-category-text">{{ results.first.category }}</p>
             </div>
-          {% elif recipe.category.name == 'Entrées' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/entree.jpg' %})"></div>
-              <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
+          </div>
+        {% elif results.first.category.name == 'Entrées' %}
+          <div class="row no-gutters recipe-result">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url({% static 'search/assets/img/entree.jpg' %})"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+              <h2><a class="result-text" href="{{ results.first.get_absolute_url }}">{{ results.first.name }}</a></h2>
+              <p class="lead mb-0 font-weight-normal result-category-text">{{ results.first.category }}</p>
             </div>
-          {% elif recipe.category.name == 'Soupes' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/soupe.jpg' %})"></div>
-              <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
+          </div>
+        {% elif results.first.category.name == 'Soupes' %}
+          <div class="row no-gutters recipe-result">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url({% static 'search/assets/img/soupe.jpg' %})"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+              <h2><a class="result-text" href="{{ results.first.get_absolute_url }}">{{ results.first.name }}</a></h2>
+              <p class="lead mb-0 font-weight-normal result-category-text">{{ results.first.category }}</p>
             </div>
-          {% elif recipe.category.name == 'Plats' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/plat.jpg' %})"></div>
-              <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
+          </div>
+        {% elif results.first.category.name == 'Plats' %}
+          <div class="row no-gutters recipe-result">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url({% static 'search/assets/img/plat.jpg' %})"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+              <h2><a class="result-text" href="{{ results.first.get_absolute_url }}">{{ results.first.name }}</a></h2>
+              <p class="lead mb-0 font-weight-normal result-category-text">{{ results.first.category }}</p>
             </div>
-          {% elif recipe.category.name == 'Desserts' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/dessert.jpeg' %})"></div>
-              <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
+          </div>
+        {% elif results.first.category.name == 'Desserts' %}
+          <div class="row no-gutters recipe-result">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url({% static 'search/assets/img/dessert.jpeg' %})"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+              <h2><a class="result-text" href="{{ results.first.get_absolute_url }}">{{ results.first.name }}</a></h2>
+              <p class="lead mb-0 font-weight-normal result-category-text">{{ results.first.category }}</p>
             </div>
-          {% elif recipe.category.name == 'Petit-Déjeuner' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/petit-dej.jpg' %})"></div>
-              <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
+          </div>
+        {% elif results.first.category.name == 'Petit-Déjeuner' %}
+          <div class="row no-gutters recipe-result">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url({% static 'search/assets/img/petit-dej.jpg' %})"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+              <h2><a class="result-text" href="{{ results.first.get_absolute_url }}">{{ results.first.name }}</a></h2>
+              <p class="lead mb-0 font-weight-normal result-category-text">{{ results.first.category }}</p>
             </div>
-          {% elif recipe.category.name == 'Sauces' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 order-lg-2 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/sauce.jpg' %})"></div>
-              <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
+          </div>
+        {% elif results.first.category.name == 'Sauces' %}
+          <div class="row no-gutters recipe-result">
+            <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                 style="background-image: url({% static 'search/assets/img/sauce.jpg' %})"></div>
+            <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+              <h2><a class="result-text" href="{{ results.first.get_absolute_url }}">{{ results.first.name }}</a></h2>
+              <p class="lead mb-0 font-weight-normal result-category-text">{{ results.first.category }}</p>
             </div>
-          {% endif %}
-        {% else %}
-          {% if recipe.category.name == 'Cocktails' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/cocktail.jpg' %})"></div>
-              <div class="col-lg-6 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
-            </div>
-          {% elif recipe.category.name == 'Apéritifs' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/aperitif.jpg' %})"></div>
-              <div class="col-lg-6 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
-            </div>
-          {% elif recipe.category.name == 'Entrées' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/entree.jpg' %})"></div>
-              <div class="col-lg-6 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
-            </div>
-          {% elif recipe.category.name == 'Soupes' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/soupe.jpg' %})"></div>
-              <div class="col-lg-6 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
-            </div>
-          {% elif recipe.category.name == 'Plats' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/plat.jpg' %})"></div>
-              <div class="col-lg-6 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
-            </div>
-          {% elif recipe.category.name == 'Desserts' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/dessert.jpeg' %})"></div>
-              <div class="col-lg-6 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
-            </div>
-          {% elif recipe.category.name == 'Petit-Déjeuner' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/petit-dej.jpg' %})"></div>
-              <div class="col-lg-6 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
-            </div>
-          {% elif recipe.category.name == 'Sauces' %}
-            <div class="row no-gutters recipe-result">
-              <div class="col-lg-6 text-white showcase-img"
-                   style="background-image: url({% static 'search/assets/img/sauce.jpg' %})"></div>
-              <div class="col-lg-6 my-auto showcase-text">
-                <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
-                <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
-              </div>
-            </div>
-          {% endif %}
+          </div>
         {% endif %}
-      {% endfor %}
+      {% else %}
+        {% for recipe in results %}
+          {% if forloop.counter0|divisibleby:2 %}
+            {% if recipe.category.name == 'Cocktails' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/cocktail.jpg' %})"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Apéritifs' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/aperitif.jpg' %})"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Entrées' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/entree.jpg' %})"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Soupes' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/soupe.jpg' %})"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Plats' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/plat.jpg' %})"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Desserts' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/dessert.jpeg' %})"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Petit-Déjeuner' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/petit-dej.jpg' %})"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Sauces' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/sauce.jpg' %})"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% endif %}
+          {% else %}
+            {% if recipe.category.name == 'Cocktails' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/cocktail.jpg' %})"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Apéritifs' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/aperitif.jpg' %})"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Entrées' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/entree.jpg' %})"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Soupes' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/soupe.jpg' %})"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Plats' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/plat.jpg' %})"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Desserts' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/dessert.jpeg' %})"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Petit-Déjeuner' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/petit-dej.jpg' %})"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% elif recipe.category.name == 'Sauces' %}
+              <div class="row no-gutters recipe-result">
+                <div class="col-lg-6 text-white showcase-img"
+                     style="background-image: url({% static 'search/assets/img/sauce.jpg' %})"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                  <h2><a class="result-text" href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h2>
+                  <p class="lead mb-0 font-weight-normal result-category-text">{{ recipe.category }}</p>
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     </div>
   </section>
 {% endblock %}
