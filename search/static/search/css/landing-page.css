@@ -23,8 +23,9 @@ header.masthead {
   background-color: #343a40;
   background: url("../assets/img/masthead-background.jpg") center center;
   background-size: cover;
-  padding-top: 8rem;
-  padding-bottom: 8rem;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  max-height: 75vh;
 }
 
 header.masthead .overlay {
@@ -49,6 +50,10 @@ header.masthead h1 {
   header.masthead h1 {
     font-size: 3rem;
   }
+}
+
+.showcase {
+  min-height: 75vh;
 }
 
 .showcase .showcase-text {
