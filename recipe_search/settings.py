@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$1%i5#0)oydv80!97sj9em0i%qp0fr#wv7!ix=!hqjmuow2s2&'
+SECRET_KEY = os.environ.get('SECRET_KEY', '$1%i5#0)oydv80!97sj9em0i%qp0fr#wv7!ix=!hqjmuow2s2&')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['heroku']
 
 # Application definition
 
@@ -151,14 +151,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+if os.environ.get('ENV') == 'HEROKU':
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+    # Extra places for collectstatic to find static files.
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files (User Images)
 
@@ -166,4 +167,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+if os.environ.get('ENV') == 'HEROKU':
+    django_heroku.settings(locals())
