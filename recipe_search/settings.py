@@ -180,4 +180,4 @@ if os.environ.get('ENV') == 'HEROKU':
 
 # Activate Django-Heroku.
 if os.environ.get('ENV') == 'HEROKU':
-    django_heroku.settings(locals())
+    django_heroku.settings(locals(), staticfiles=False)
