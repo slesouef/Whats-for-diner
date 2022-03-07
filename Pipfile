@@ -11,6 +11,8 @@ django-crispy-forms = "*"
 psycopg2-binary = "==2.8.6"
 gunicorn = "*"
 django-heroku = "*"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 coverage = "~=5.5"
