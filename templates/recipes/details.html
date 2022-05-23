@@ -80,5 +80,18 @@
       </div>
     </div>
   </section>
+  <section class="page-section">
+    <div class="container">
+      <a class="btn btn-primary mt-2" onClick="copyUrl('{{ request.build_absolute_uri }}')">Copier le lien de cette recette</a>
+    </div>
+  </section>
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+      function copyUrl(uri) {
+        navigator.clipboard.writeText(uri)
+      }
+    </script>
 {% endblock %}
