@@ -51,7 +51,7 @@ class Recipes(models.Model):
         a name, a creator, a category, a list of ingredients, and a rating
     """
     name = models.CharField(max_length=255)
-    rating = models.IntegerField(blank=True, null=True)
+    rating = models.JSONField(null=True)
     creator = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     category = models.ForeignKey("Categories", on_delete=models.CASCADE)
     creationDate = models.DateTimeField(auto_now_add=True)

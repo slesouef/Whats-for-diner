@@ -20,7 +20,7 @@ class RecipesAppModelsTest(TestCase):
         cls.recipe = Recipes.objects.create(name="test",
                                             category=cls.category,
                                             creator=cls.user,
-                                            rating=5)
+                                            rating={"positive votes": 5, "total votes": 15})
         cls.ingredient = Ingredients.objects.create(name="test",
                                                     quantity="12",
                                                     recipe=cls.recipe)
@@ -78,7 +78,7 @@ class RecipesAppModelsTest(TestCase):
         The foreign keys are user and category
         The associated ingredients are reachable"""
         self.assertIsInstance(self.recipe.name, str)
-        self.assertIsInstance(self.recipe.rating, int)
+        self.assertIsInstance(self.recipe.rating, dict)
         user_fk = self.recipe.creator
         self.assertEqual(user_fk, self.user)
         category_fk = self.recipe.category
