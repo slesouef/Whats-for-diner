@@ -72,7 +72,7 @@ def recipe_details(request, rid):
     recipe = get_object_or_404(Recipes.objects.filter(id=rid))
     ingredients = Ingredients.objects.filter(recipe_id=recipe.id)
     steps = Content.objects.filter(recipe_id=recipe.id)
-    rating = recipe.rating["liked"]
+    rating = recipe.rating
     return render(request, "recipes/details.html",
                   {"recipe": recipe, "ingredients_list": ingredients,
                    "steps_list": steps, "rating": rating})

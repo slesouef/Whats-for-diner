@@ -150,6 +150,10 @@ class UnauthenticatedUserTestCases(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "recipes/details.html")
+        self.assertTrue("recipe" in response.context)
+        self.assertTrue("ingredients_list" in response.context)
+        self.assertTrue("steps_list" in response.context)
+        self.assertTrue("rating" in response.context)
 
     def test_get_recipe_create_unauthenticated(self):
         """Verify user redirect to login"""
@@ -346,6 +350,12 @@ class RecipeRatingTestCases(TestCase):
         self.client.post("/recipe/create", data=form_data)
         new_recipe = Recipes.objects.filter(name="vote_test").first()
         self.recipe_id = new_recipe.id
+
+    def test_default_recipe_rating_is_None(self):
+        """ Validate the default rating of a recipe"""
+        response = self.client.get(f"/recipe/details/{self.recipe_id}")
+        self.assertEqual(200, response.status_code)
+        self.assertIsNone(response.context["rating"])
 
     def test_add_first_rating_to_recipe(self):
         """Add a rating for the first time"""
