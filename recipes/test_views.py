@@ -150,6 +150,10 @@ class UnauthenticatedUserTestCases(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "recipes/details.html")
+        self.assertTrue("recipe" in response.context)
+        self.assertTrue("ingredients_list" in response.context)
+        self.assertTrue("steps_list" in response.context)
+        self.assertTrue("rating" in response.context)
 
     def test_get_recipe_create_unauthenticated(self):
         """Verify user redirect to login"""
@@ -314,3 +318,58 @@ class UserRecipeListTestCases(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "recipes/list.html")
+
+
+class RecipeRatingTestCases(TestCase):
+    """
+    Validate the behaviour of the add vote result method
+    """
+
+    @classmethod
+    def setUpTestData(cls):
+        """Create category entry for tests"""
+        super().setUpTestData()
+        category = Categories()
+        category.name = "test category"
+        category.save()
+        cls.category_id = category.id
+
+    def setUp(self):
+        """Create an authenticated user and create a recipe for that user"""
+        self.user = MyUser.objects.create_user(username="voter")
+        self.client.force_login(self.user)
+        form_data = {'name': 'vote_test',
+                     'category': self.category_id,
+                     'ingredient-TOTAL_FORMS': '1',
+                     'ingredient-INITIAL_FORMS': '0',
+                     'ingredient-0-name': 'petit pois',
+                     'ingredient-0-quantity': '1b',
+                     'step-TOTAL_FORMS': '1',
+                     'step-INITIAL_FORMS': '0',
+                     'step-0-instructions': 'test'}
+        self.client.post("/recipe/create", data=form_data)
+        new_recipe = Recipes.objects.filter(name="vote_test").first()
+        self.recipe_id = new_recipe.id
+
+    def test_default_recipe_rating_is_None(self):
+        """ Validate the default rating of a recipe"""
+        response = self.client.get(f"/recipe/details/{self.recipe_id}")
+        self.assertEqual(200, response.status_code)
+        self.assertIsNone(response.context["rating"])
+
+    def test_add_first_rating_to_recipe(self):
+        """Add a rating for the first time"""
+        response = self.client.post(f"/recipe/vote/{self.recipe_id}")
+        self.assertEqual(200, response.status_code)
+        self.assertEqual("application/json", response.headers.get("Content-Type"))
+        self.assertEqual(b'{"status": "success", "rating": {"liked": 1, "total votes": 1}}',
+                         response.content)
+
+    def test_add_rating_to_recipe(self):
+        """increment the rating of a rated recipe"""
+        first_rating = self.client.post(f"/recipe/vote/{self.recipe_id}")
+        response = self.client.post(f"/recipe/vote/{self.recipe_id}")
+        self.assertEqual(200, response.status_code)
+        self.assertEqual("application/json", response.headers.get("Content-Type"))
+        self.assertEqual(b'{"status": "success", "rating": {"liked": 2, "total votes": 2}}',
+                         response.content)

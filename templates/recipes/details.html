@@ -80,5 +80,39 @@
       </div>
     </div>
   </section>
+  <section class="page-section">
+    <div class="container my-2">
+      <a class="btn btn-primary mt-2" onClick="copyUrl('{{ request.build_absolute_uri }}')">Copier le lien de cette recette</a>
+    </div>
+    <div class="container my-2">
+      {% if user.is_authenticated %}
+        {% csrf_token %}
+        <button class="btn btn-outline-light"><i class="fas fa-thumbs-up fa-2x"></i></button>
+        {% if recipe.rating == None %}
+          <span class="mx-2" id="rating">0</span>
+        {% else %}
+          <span class="mx-2" id="rating">{{ rating }}</span>
+        {% endif %}
+  {% endif %}
+    </div>
+  </section>
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+      function copyUrl(uri) {
+        navigator.clipboard.writeText(uri)
+      }
+
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      document.addEventListener('DOMContentLoaded', function () {
+        $('button').on('click', function () {
+          $.ajax({ url: "{% url "vote" rid=recipe.id %}", type: "POST", dataType: 'json', headers: {'X-CSRFToken': csrftoken},
+              success: function (response) {
+                $('#rating').text(response.rating.liked);
+          }});
+        });
+      });
+    </script>
 {% endblock %}
