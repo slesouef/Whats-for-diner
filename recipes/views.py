@@ -1,6 +1,7 @@
 """
 views for the recipes app
 """
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
@@ -71,8 +72,10 @@ def recipe_details(request, rid):
     recipe = get_object_or_404(Recipes.objects.filter(id=rid))
     ingredients = Ingredients.objects.filter(recipe_id=recipe.id)
     steps = Content.objects.filter(recipe_id=recipe.id)
+    rating = recipe.rating
     return render(request, "recipes/details.html",
-                  {"recipe": recipe, "ingredients_list": ingredients, "steps_list": steps})
+                  {"recipe": recipe, "ingredients_list": ingredients,
+                   "steps_list": steps, "rating": rating})
 
 
 @login_required
@@ -81,3 +84,25 @@ def show_list(request):
     user = request.user
     recipes = Recipes.objects.filter(creator=user)
     return render(request, 'recipes/list.html', {"results": recipes})
+
+
+@login_required
+def add_vote_result(request, rid):
+    """Add user vote result to recipe vote tally"""
+    if request.method == "POST":
+        recipe = get_object_or_404(Recipes.objects.filter(id=rid))
+        old_rating = recipe.rating
+        new_rating = {}
+        if old_rating:
+            liked = old_rating["liked"] + 1
+            total = old_rating["total votes"] + 1
+            new_rating["liked"] = liked
+            new_rating["total votes"] = total
+            recipe.rating = new_rating
+            recipe.save()
+        else:
+            new_rating = {"liked": 1, "total votes": 1}
+            recipe.rating = new_rating
+            recipe.save()
+        result = {"status": "success", "rating": new_rating}
+        return JsonResponse(result)
