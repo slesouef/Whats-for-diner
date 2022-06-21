@@ -34,5 +34,6 @@ urlpatterns = [
     path('recipe/details/<int:rid>', recipes_views.recipe_details, name='details'),
     path('recipe/update/<int:rid>', recipes_views.update_recipe, name='recipeUpdate'),
     path('recipe/list', recipes_views.show_list, name='userList'),
+    path('recipe/vote/<int:rid>', recipes_views.add_vote_result, name='vote'),
     path('', search_views.landing, name='landing'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
