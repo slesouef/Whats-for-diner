@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '$1%i5#0)oydv80!97sj9em0i%qp0fr#wv7!ix
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['51.159.66.3', 'localhost']
+ALLOWED_HOSTS = ['51.159.66.3', '.viteunerecette.xyz']
 
 # Application definition
 
