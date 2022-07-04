@@ -155,3 +155,11 @@ if os.environ.get('TRAVIS') == 'true':
 else:
     MEDIA_ROOT = os.path.dirname('/var/www/diner.com/media/')
     MEDIA_URL = '/media/'
+
+# Security
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 2592000
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
