@@ -91,7 +91,7 @@
         {% if recipe.rating == None %}
           <span class="mx-2" id="rating">0</span>
         {% else %}
-          <span class="mx-2" id="rating">{{ rating }}</span>
+          <span class="mx-2" id="rating">{{ rating.liked }}</span>
         {% endif %}
   {% endif %}
     </div>
