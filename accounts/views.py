@@ -35,7 +35,8 @@ def signup(request):
                 raw_password = form.cleaned_data.get("password")
                 user.set_password(raw_password)
                 user.save()
-                authenticated_user = authenticate(request, username=username, password=raw_password)
+                authenticated_user = authenticate(request, username=username,
+                                                  password=raw_password)
                 login(request, authenticated_user)
                 logger.info("new account created successfully")
                 return redirect("profile")
@@ -87,7 +88,8 @@ def update(request):
                 user.avatar = form.files["avatar"]
                 logger.debug("user %s updated user icon", {user.username})
             user.save()
-            logger.info("user %s information update successful", {user.username})
+            logger.info("user %s information update successful",
+                        {user.username})
             return redirect("profile")
     else:
         form = UpdateForm()
@@ -104,7 +106,8 @@ def delete(request):
         user = request.user
         user.delete()
         logger.info("account deleted successfully")
-        logger.debug("account for user %s deleted successfully", {user.username})
+        logger.debug("account for user %s deleted successfully",
+                     {user.username})
         return redirect("landing")
     return render(request, "accounts/confirmation.html")
 
@@ -127,7 +130,8 @@ def user_login(request):
                 logger.debug("user successfully logged in")
                 return redirect("profile")
             else:
-                logger.debug("user authentication failed for user %s", {username})
+                logger.debug("user authentication failed for user %s",
+                             {username})
         else:
             logger.debug("Login attempt with incorrect credentials")
     else:

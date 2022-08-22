@@ -29,7 +29,8 @@ def create_test_image(name=None):
 
 class UnauthenticatedUserViewsTestCase(TestCase):
     """
-    Verify the behaviour of the accounts app views when a user is not authenticated
+    Verify the behaviour of the accounts app views when a user
+    is not authenticated
     """
 
     def test_signup_page(self):
@@ -75,17 +76,23 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         shutil.rmtree(f"{BASE_DIR}/media/te")
 
     def test_update_page_unauthenticated(self):
-        """Test the update page is not displayed when user is unauthenticated"""
+        """
+        Test the update page is not displayed when user is unauthenticated
+        """
         response = self.client.get("/account/update")
         self.assertRedirects(response, "/account/login?next=/account/update")
 
     def test_profile_page_unauthenticated(self):
-        """Test the profile page is not displayed when user is unauthenticated"""
+        """
+        Test the profile page is not displayed when user is unauthenticated
+        """
         response = self.client.get("/account/profile")
         self.assertRedirects(response, "/account/login?next=/account/profile")
 
     def test_delete_page_unauthenticated(self):
-        """Test the delete page is not displayed when user is unauthenticated"""
+        """
+        Test the delete page is not displayed when user is unauthenticated
+        """
         response = self.client.get("/account/delete")
         self.assertRedirects(response, "/account/login?next=/account/delete")
 
@@ -106,7 +113,9 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         self.assertRedirects(response, "/account/profile")
 
     def test_logout_user_not_authenticated(self):
-        """validate logout does not throw an error for a user not authenticated"""
+        """
+        Validate logout does not throw an error for a user not authenticated
+        """
         response = self.client.get("/logout")
         self.assertRedirects(response, reverse(LOGOUT_REDIRECT_URL))
 
@@ -122,7 +131,10 @@ class AuthenticatedUserViewsTestCase(TestCase):
         self.client.force_login(self.user)
 
     def test_signup_page(self):
-        """Test than an authenticated user is redirected when calling the signup page"""
+        """
+        Test that an authenticated user is redirected
+        when calling the signup page
+        """
         response = self.client.get("/account/signup")
         self.assertRedirects(response, "/account/profile")
 

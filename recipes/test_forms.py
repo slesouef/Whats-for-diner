@@ -14,12 +14,14 @@ class RecipeNameFormTest(SimpleTestCase):
     def test_recipe_name_field_label(self):
         """Verify the recipe name label"""
         form = RecipeNameForm
-        self.assertEqual("Nom de la recette", form.declared_fields.get("name").label)
+        self.assertEqual("Nom de la recette",
+                         form.declared_fields.get("name").label)
 
     def test_recipe_category_field_label(self):
         """Verify the category field label"""
         form = RecipeNameForm
-        self.assertEqual("Catégorie", form.declared_fields.get("category").label)
+        self.assertEqual("Catégorie",
+                         form.declared_fields.get("category").label)
 
 
 class IngredientFormTest(SimpleTestCase):
