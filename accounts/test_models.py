@@ -21,8 +21,10 @@ class MyUserModelTest(SimpleTestCase):
 
     def test_upload_path(self):
         """
-        The user's file is uploaded in a user specific directory with the following structure
-            - directory named after the first two letters of the user's username
+        The user's file is uploaded in a user specific directory
+        with the following structure
+            - directory named after the first two letters
+              of the user's username
             - directory name after the user's username value
         """
         user = MyUser(username="XeRxEs")

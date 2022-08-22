@@ -1,8 +1,10 @@
 """
 Contains the methods to create the search results
-From the list of query terms, these should return the following list of recipes, in order:
+From the list of query terms, these should return the following list
+of recipes, in order:
     - all the recipes whose list of ingredients contain all query terms
-    - all the recipes whose list of ingredients contains more than one query term
+    - all the recipes whose list of ingredients contains more than
+      one query term
     - all the recipes with one of the query terms in the recipe name
     - all the recipes whose list of ingredients contains one query term
 """
@@ -31,4 +33,5 @@ def get_results(query):
         Q(name__icontains=term) for term in normalized_queries
     ))
     final_query = reduce(operator.or_, (all_ingredients, multiple_lookups))
-    return Recipes.objects.select_related('category').filter(final_query).distinct()
+    return Recipes.objects.select_related('category').filter(final_query).\
+        distinct()

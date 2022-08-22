@@ -20,7 +20,8 @@ class RecipesAppModelsTest(TestCase):
         cls.recipe = Recipes.objects.create(name="test",
                                             category=cls.category,
                                             creator=cls.user,
-                                            rating={"positive votes": 5, "total votes": 15})
+                                            rating={"positive votes": 5,
+                                                    "total votes": 15})
         cls.ingredient = Ingredients.objects.create(name="test",
                                                     quantity="12",
                                                     recipe=cls.recipe)
@@ -46,18 +47,22 @@ class RecipesAppModelsTest(TestCase):
          The primary foreign keys are recipe and ingredients"""
         self.assertIsInstance(self.content.index, int)
         self.assertIsInstance(self.content.instructions, str)
-        self.assertIsInstance(self.content.creationDate, datetime.datetime)
-        self.assertIsInstance(self.content.modificationDate, datetime.datetime)
+        self.assertIsInstance(self.content.creation_date, datetime.datetime)
+        self.assertIsInstance(self.content.modification_date,
+                              datetime.datetime)
         recipe_fk = self.content.recipe.id
         self.assertEqual(recipe_fk, self.recipe.id)
 
     def test_ingredient_name_max_length(self):
         """The ingredient name has a max length of 255"""
-        self.assertEqual(255, self.ingredient._meta.get_field("name").max_length)
+        self.assertEqual(255,
+                         self.ingredient._meta.get_field("name").max_length)
 
     def test_ingredient_quantity_max_length(self):
         """The ingredient name has a max length of 255"""
-        self.assertEqual(255, self.ingredient._meta.get_field("quantity").max_length)
+        self.assertEqual(255,
+                         self.ingredient._meta.get_field("quantity").
+                         max_length)
 
     def test_ingredients_model_fields_implementation(self):
         """An Ingredient has a name and a creation date"""
@@ -65,8 +70,10 @@ class RecipesAppModelsTest(TestCase):
         self.assertIsInstance(self.ingredient.quantity, str)
         recipe_fk = self.ingredient.recipe
         self.assertEqual(recipe_fk, self.recipe)
-        self.assertIsInstance(self.ingredient.creationDate, datetime.datetime)
-        self.assertIsInstance(self.ingredient.modificationDate, datetime.datetime)
+        self.assertIsInstance(self.ingredient.creation_date,
+                              datetime.datetime)
+        self.assertIsInstance(self.ingredient.modification_date,
+                              datetime.datetime)
 
     def test_recipe_name_max_length(self):
         """The recipe name should have a max length of 255"""
@@ -83,8 +90,8 @@ class RecipesAppModelsTest(TestCase):
         self.assertEqual(user_fk, self.user)
         category_fk = self.recipe.category
         self.assertEqual(category_fk, self.category)
-        self.assertIsInstance(self.recipe.creationDate, datetime.datetime)
-        self.assertIsInstance(self.recipe.modificationDate, datetime.datetime)
+        self.assertIsInstance(self.recipe.creation_date, datetime.datetime)
+        self.assertIsInstance(self.recipe.modification_date, datetime.datetime)
         self.assertEqual(1, len(self.recipe.ingredients_set.values()))
         self.assertIn(self.ingredient, self.recipe.ingredients_set.all())
         self.assertEqual(1, len(self.recipe.content_set.values()))

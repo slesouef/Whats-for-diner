@@ -22,13 +22,13 @@ class Categories(models.Model):
 class Content(models.Model):
     """
     Recipe content
-    Links ingredients and recipes with a quantity for each ingredients
+    Links ingredients and recipes with a quantity for each ingredient
     """
     recipe = models.ForeignKey("Recipes", on_delete=models.CASCADE)
     index = models.SmallIntegerField(null=False)
     instructions = models.TextField()
-    creationDate = models.DateTimeField(auto_now_add=True)
-    modificationDate = models.DateTimeField(auto_now=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    modification_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["index"]
@@ -41,8 +41,8 @@ class Ingredients(models.Model):
     recipe = models.ForeignKey("Recipes", on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     quantity = models.CharField(max_length=255)
-    creationDate = models.DateTimeField(auto_now_add=True)
-    modificationDate = models.DateTimeField(auto_now=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    modification_date = models.DateTimeField(auto_now=True)
 
 
 class Recipes(models.Model):
@@ -54,8 +54,8 @@ class Recipes(models.Model):
     rating = models.JSONField(null=True)
     creator = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     category = models.ForeignKey("Categories", on_delete=models.CASCADE)
-    creationDate = models.DateTimeField(auto_now_add=True)
-    modificationDate = models.DateTimeField(auto_now=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    modification_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
         """method to create the url for a specific recipe"""

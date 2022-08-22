@@ -34,7 +34,8 @@ class RecipesCreateTestCase(TestCase):
         self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "recipes/create.html")
         self.assertIsInstance(response.context["recipe"], RecipeNameForm)
-        self.assertIsInstance(response.context["ingredients"], IngredientsFormSet)
+        self.assertIsInstance(response.context["ingredients"],
+                              IngredientsFormSet)
         self.assertIsInstance(response.context["steps"], ContentFormSet)
 
     def test_post_create_invalid_recipe_name(self):
@@ -51,7 +52,8 @@ class RecipesCreateTestCase(TestCase):
         response = self.client.post("/recipe/create", data=form_data)
         self.assertEqual(200, response.status_code)
         self.assertFalse(response.context["recipe"].is_valid())
-        self.assertFormError(response, "recipe", "name", "This field is required.")
+        self.assertFormError(response, "recipe", "name",
+                             "This field is required.")
 
     def test_post_create_invalid_ingredient_name(self):
         """validate the error raised if the ingredient name is invalid"""
@@ -67,7 +69,8 @@ class RecipesCreateTestCase(TestCase):
         response = self.client.post("/recipe/create", data=form_data)
         self.assertEqual(200, response.status_code)
         self.assertFalse(response.context["ingredients"].is_valid())
-        self.assertFormsetError(response, "ingredients", 0, "name", "This field is required.")
+        self.assertFormsetError(response, "ingredients", 0, "name",
+                                "This field is required.")
 
     def test_post_create_invalid_ingredient_quantity(self):
         """Validate the error raised if the ingredient quantity is invalid"""
@@ -83,7 +86,8 @@ class RecipesCreateTestCase(TestCase):
         response = self.client.post("/recipe/create", data=form_data)
         self.assertEqual(200, response.status_code)
         self.assertFalse(response.context["ingredients"].is_valid())
-        self.assertFormsetError(response, "ingredients", 0, "quantity", "This field is required.")
+        self.assertFormsetError(response, "ingredients", 0, "quantity",
+                                "This field is required.")
 
     def test_post_create_valid_forms(self):  # TODO: 2+ entries per formsets
         """Verify that the recipe is created if all the forms are valid"""
@@ -115,8 +119,8 @@ class RecipesCreateTestCase(TestCase):
 class UnauthenticatedUserTestCases(TestCase):
     """
     Validate the behaviour of the recipes details view
-    Validate the redirections in case the recipe create, recipe update, and show user list pages
-    are called by an unauthenticated user
+    Validate the redirections in case the recipe create, recipe update,
+    and show user list pages are called by an unauthenticated user
     """
 
     @classmethod
@@ -220,7 +224,8 @@ class RecipesUpdateTestCase(TestCase):
         self.assertTemplateUsed(response, "search/base.html")
         self.assertTemplateUsed(response, "recipes/update.html")
         self.assertIsInstance(response.context["recipe"], RecipeNameForm)
-        self.assertIsInstance(response.context["ingredients"], IngredientsFormSet)
+        self.assertIsInstance(response.context["ingredients"],
+                              IngredientsFormSet)
         self.assertIsInstance(response.context["steps"], ContentFormSet)
 
     def test_post_update_invalid_recipe_name(self):
@@ -237,10 +242,14 @@ class RecipesUpdateTestCase(TestCase):
         response = self.client.post(self.url, data=form_data)
         self.assertEqual(200, response.status_code)
         self.assertFalse(response.context["recipe"].is_valid())
-        self.assertFormError(response, "recipe", "name", "This field is required.")
+        self.assertFormError(response, "recipe", "name",
+                             "This field is required.")
 
     def test_post_update_invalid_ingredient_name(self):
-        """validate the error raised if the ingredient name is invalid after update"""
+        """
+        Validate the error raised if the ingredient name is invalid
+        after update
+        """
         form_data = {'name': 'test',
                      'category': self.category_id,
                      'ingredient-TOTAL_FORMS': '1',
@@ -253,10 +262,14 @@ class RecipesUpdateTestCase(TestCase):
         response = self.client.post(self.url, data=form_data)
         self.assertEqual(200, response.status_code)
         self.assertFalse(response.context["ingredients"].is_valid())
-        self.assertFormsetError(response, "ingredients", 0, "name", "This field is required.")
+        self.assertFormsetError(response, "ingredients", 0, "name",
+                                "This field is required.")
 
     def test_post_update_invalid_ingredient_quantity(self):
-        """Validate the error raised if the ingredient quantity is invalid after update"""
+        """
+        Validate the error raised if the ingredient quantity is invalid
+        after update
+        """
         form_data = {'name': 'test',
                      'category': self.category_id,
                      'ingredient-TOTAL_FORMS': '1',
@@ -269,10 +282,14 @@ class RecipesUpdateTestCase(TestCase):
         response = self.client.post(self.url, data=form_data)
         self.assertEqual(200, response.status_code)
         self.assertFalse(response.context["ingredients"].is_valid())
-        self.assertFormsetError(response, "ingredients", 0, "quantity", "This field is required.")
+        self.assertFormsetError(response, "ingredients", 0, "quantity",
+                                "This field is required.")
 
     def test_post_update_valid_forms(self):
-        """Verify that the recipe is created if all the forms are valid after update"""
+        """
+        Verify that the recipe is created if all the forms are valid
+        after update
+        """
         form_data = {'name': 'test updated',
                      'category': self.category_id,
                      'ingredient-TOTAL_FORMS': '1',
@@ -288,7 +305,8 @@ class RecipesUpdateTestCase(TestCase):
         self.assertEqual(1, len(updated_recipe))
         self.assertEqual("test updated", updated_recipe[0].name)
         self.assertEqual("test category", updated_recipe[0].category.name)
-        updated_ingredients = Ingredients.objects.filter(recipe_id=self.recipe_id)
+        updated_ingredients = Ingredients.objects.filter(
+            recipe_id=self.recipe_id)
         self.assertEqual(2, len(updated_ingredients))
         self.assertEqual("petit pois", updated_ingredients[0].name)
         self.assertEqual("1b", updated_ingredients[0].quantity)
@@ -299,7 +317,8 @@ class RecipesUpdateTestCase(TestCase):
         self.assertEqual("test", updated_steps[0].instructions)
         self.assertEqual(0, updated_steps[0].index)
         self.assertEqual("new step", updated_steps[1].instructions)
-        # not testing index of new step as the passed form does not allow correct ordering
+        # not testing index of new step as the passed form
+        # does not allow correct ordering
 
 
 class UserRecipeListTestCases(TestCase):
@@ -351,7 +370,7 @@ class RecipeRatingTestCases(TestCase):
         new_recipe = Recipes.objects.filter(name="vote_test").first()
         self.recipe_id = new_recipe.id
 
-    def test_default_recipe_rating_is_None(self):
+    def test_default_recipe_rating_is_none(self):
         """ Validate the default rating of a recipe"""
         response = self.client.get(f"/recipe/details/{self.recipe_id}")
         self.assertEqual(200, response.status_code)
@@ -361,15 +380,19 @@ class RecipeRatingTestCases(TestCase):
         """Add a rating for the first time"""
         response = self.client.post(f"/recipe/vote/{self.recipe_id}")
         self.assertEqual(200, response.status_code)
-        self.assertEqual("application/json", response.headers.get("Content-Type"))
-        self.assertEqual(b'{"status": "success", "rating": {"liked": 1, "total votes": 1}}',
+        self.assertEqual("application/json",
+                         response.headers.get("Content-Type"))
+        self.assertEqual(b'{"status": "success", '
+                         b'"rating": {"liked": 1, "total votes": 1}}',
                          response.content)
 
     def test_add_rating_to_recipe(self):
         """increment the rating of a rated recipe"""
-        first_rating = self.client.post(f"/recipe/vote/{self.recipe_id}")
+        self.client.post(f"/recipe/vote/{self.recipe_id}")
         response = self.client.post(f"/recipe/vote/{self.recipe_id}")
         self.assertEqual(200, response.status_code)
-        self.assertEqual("application/json", response.headers.get("Content-Type"))
-        self.assertEqual(b'{"status": "success", "rating": {"liked": 2, "total votes": 2}}',
+        self.assertEqual("application/json",
+                         response.headers.get("Content-Type"))
+        self.assertEqual(b'{"status": "success", '
+                         b'"rating": {"liked": 2, "total votes": 2}}',
                          response.content)

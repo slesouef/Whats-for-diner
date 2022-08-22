@@ -36,9 +36,11 @@ def create_recipe(request):
                     step.save()
             return redirect(new_recipe.get_absolute_url())
         return render(request, "recipes/create.html",
-                      {"recipe": recipe, "ingredients": ingredients, "steps": steps})
+                      {"recipe": recipe, "ingredients": ingredients,
+                       "steps": steps})
     return render(request, "recipes/create.html",
-                  {"recipe": recipe, "ingredients": ingredients, "steps": steps})
+                  {"recipe": recipe, "ingredients": ingredients,
+                   "steps": steps})
 
 
 @login_required
@@ -46,11 +48,14 @@ def update_recipe(request, rid):
     """A page to update an existing recipe"""
     recipe = get_object_or_404(Recipes, id=rid)
     recipe_form = RecipeNameForm(request.POST or None, instance=recipe)
-    ingredients_formset = IngredientsFormSet(request.POST or None, prefix="ingredient",
+    ingredients_formset = IngredientsFormSet(request.POST or None,
+                                             prefix="ingredient",
                                              instance=recipe)
-    steps_formset = ContentFormSet(request.POST or None, prefix="step", instance=recipe)
+    steps_formset = ContentFormSet(request.POST or None, prefix="step",
+                                   instance=recipe)
     if request.method == "POST":
-        if recipe_form.is_valid() and ingredients_formset.is_valid() and steps_formset.is_valid():
+        if recipe_form.is_valid() and ingredients_formset.is_valid() and \
+                steps_formset.is_valid():
             recipe_form.save()
             ingredients_formset.save()
             steps_formset.save(commit=False)
@@ -59,12 +64,13 @@ def update_recipe(request, rid):
                 obj.save()
             steps_formset.save()
             return redirect(recipe.get_absolute_url())
-        return render(request, "recipes/update.html", {"recipe": recipe_form,
-                                                       "ingredients": ingredients_formset,
-                                                       "steps": steps_formset})
-    return render(request, "recipes/update.html", {"recipe": recipe_form,
-                                                   "ingredients": ingredients_formset,
-                                                   "steps": steps_formset})
+        return render(request, "recipes/update.html",
+                      {"recipe": recipe_form,
+                       "ingredients": ingredients_formset,
+                       "steps": steps_formset})
+    return render(request, "recipes/update.html",
+                  {"recipe": recipe_form, "ingredients": ingredients_formset,
+                   "steps": steps_formset})
 
 
 def recipe_details(request, rid):
