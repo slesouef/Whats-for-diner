@@ -8,7 +8,7 @@ of recipes, in order:
     - all the recipes with one of the query terms in the recipe name
     - all the recipes whose list of ingredients contains one query term
 """
-# Thanks to https://www.cyberhavenprogramming.com/blog/2019/4/23/django-q-object-how-make-many-complex-multiple-and-dynamic-queries-python-reduce-function-functools-or-operator-and-requestget-search-fields-parameters/
+# Thanks to https://www.cyberhavenprogramming.com/blog/2019/4/23/django-q-object-how-make-many-complex-multiple-and-dynamic-queries-python-reduce-function-functools-or-operator-and-requestget-search-fields-parameters/  # noqa
 import operator
 import re
 
